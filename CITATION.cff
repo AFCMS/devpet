@@ -1,0 +1,22 @@
+# This CITATION.cff file was generated with cffinit.
+# Visit https://bit.ly/cffinit to generate yours today!
+
+cff-version: 1.2.0
+title: DevPet
+message: >-
+  If you use this software, please cite it using the
+  metadata from this file.
+type: software
+authors:
+  - email: afcm.contact@gmail.com
+    orcid: 'https://orcid.org/0009-0005-4161-6228'
+    given-names: AFCM
+repository-code: 'https://github.com/AFCMS/devpet'
+repository: 'https://github.com/AFCMS/devpet_backend'
+abstract: IoT personal developer pet
+keywords:
+  - GitHub
+  - IoT
+  - PlatformIO
+  - ESP32
+license: GPL-3.0-or-later

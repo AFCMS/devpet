@@ -24,7 +24,7 @@ ij_editorconfig_space_before_colon = false
 ij_editorconfig_space_before_comma = false
 ij_editorconfig_spaces_around_assignment_operators = true
 
-[{*.apinotes,*.yaml,*.yml,.clang-format,.clang-tidy,_clang-format}]
+[{*.apinotes,*.yaml,*.yml,.clang-format,.clang-tidy,_clang-format,*.cff}]
 indent_size = 2
 ij_yaml_align_values_properties = do_not_align
 ij_yaml_autoinsert_sequence_marker = true

@@ -15,8 +15,16 @@ namespace utils
     namespace display
     {
         class DisplaySystem;
-        const int SCREEN_WIDTH = 128;
-        const int SCREEN_HEIGHT = 64;
+
+        /**
+         * @brief The width of the screen
+         */
+        static const int SCREEN_WIDTH = 128;
+
+        /**
+         * @brief The height of the screen
+         */
+        static const int SCREEN_HEIGHT = 64;
 
         /**
          * @brief The height of the yellow upper band of the screen

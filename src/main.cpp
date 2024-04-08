@@ -56,9 +56,9 @@ void loop()
   timeSystem.step();
 
   // Handle input
-  std::set<uint8_t> pressedButtons = inputSystem.step();
+  auto pressedButtons = inputSystem.step();
 
-  for (std::set<uint8_t>::iterator it = pressedButtons.begin(); it != pressedButtons.end(); ++it)
+  for (auto it = pressedButtons.begin(); it != pressedButtons.end(); ++it)
   {
     switch (*it)
     {
@@ -68,15 +68,14 @@ void loop()
     }
   }
 
-  auto ttt = (display::Text *)displaySystem.getNode2D(1);
-  ttt->setText(timeSystem.getCurrentHourString());
+  testText.setText(timeSystem.getCurrentHourString());
   displaySystem.step();
 
-  std::queue<comm::CommandResult> commands = commSystem.step();
+  auto commands = commSystem.step();
 
   for (int i = 0; i < commands.size(); i++)
   {
-    comm::CommandResult command = commands.front();
+    auto command = commands.front();
     commands.pop();
 
     commSystem.log(comm::MT_INFO, "Command: " + command.command_name + " Payload: " + command.playload);

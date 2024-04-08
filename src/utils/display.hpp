@@ -21,17 +21,17 @@ namespace utils
         /**
          * @brief The height of the yellow upper band of the screen
          */
-        const int SCREEN_UB_HEIGHT = 16;
+        static const int SCREEN_UB_HEIGHT = 16;
 
         /**
          * @brief The height of the blue lower band of the screen
          */
-        const int SCREEN_LB_HEIGHT = SCREEN_HEIGHT - SCREEN_UB_HEIGHT;
+        static const int SCREEN_LB_HEIGHT = SCREEN_HEIGHT - SCREEN_UB_HEIGHT;
 
         /**
          * @brief The number of characters that can be displayed on a line
          */
-        const int SCREEN_NB_CHARS = SCREEN_WIDTH / 6;
+        static const int SCREEN_NB_CHARS = SCREEN_WIDTH / 6;
 
         /**
          * @brief The number of characters that can be displayed on a line

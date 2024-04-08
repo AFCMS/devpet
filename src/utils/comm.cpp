@@ -56,6 +56,11 @@ namespace utils
             return false;
         };
 
+        void CommSystem::sendCommand(String command)
+        {
+            sendString(command);
+        };
+
         void CommSystem::sendCommand(String command, String playload)
         {
             sendString(command + " " + playload);

@@ -89,6 +89,13 @@ namespace utils
             std::queue<CommandResult> step();
 
             /**
+             * @brief Send a command to the serial communication without playload.
+             *
+             * @param command The command to be sent, should not contain spaces
+             */
+            void sendCommand(String command);
+
+            /**
              * @brief Send a command to the serial communication.
              *
              * @param command The command to be sent, should not contain spaces

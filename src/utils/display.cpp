@@ -8,10 +8,14 @@ SPDX-License-Identifier: GPL-3.0-or-later
 #include "display.hpp"
 
 namespace utils
-
 {
     namespace display
     {
+        int nbCharsInLine(int fontSize)
+        {
+            return SCREEN_WIDTH / (6 * fontSize);
+        };
+
         void printCenter(Adafruit_SSD1306 *dp, const String buf, int x, int y, uint8_t size = 1)
         {
 
@@ -48,39 +52,6 @@ namespace utils
             displaySystem->drawBitmap(x, y, bitmap, w, h);
         };
 
-        Text::Text(String _text)
-        {
-            text = _text;
-        };
-
-        String Text::getText()
-        {
-            return text;
-        };
-
-        void Text::setText(String _text)
-        {
-            text = _text;
-        };
-
-        int Text::getSize()
-        {
-            return size;
-        };
-
-        void Text::setSize(int _size)
-        {
-            size = _size;
-        };
-
-        void Text::drawFrame(DisplaySystem *displaySystem)
-        {
-            // dp->setTextSize(1);
-            // dp->setCursor(0, 0);
-            // dp->print("Hello");
-            displaySystem->printUpBar(text);
-        };
-
         DisplaySystem::DisplaySystem(Adafruit_SSD1306 *_dp, int _fps)
         {
             dp = _dp;
@@ -91,6 +62,11 @@ namespace utils
         int DisplaySystem::getFps()
         {
             return fps;
+        };
+
+        Adafruit_SSD1306 *DisplaySystem::getDP()
+        {
+            return dp;
         };
 
         void DisplaySystem::addNode2D(Node2D *node, int zIndex)
@@ -170,7 +146,7 @@ namespace utils
             if (millis() - lastMillis > 1000 / fps)
             {
                 lastMillis = millis();
-                // clearDisplay();
+                clearDisplay();
 
                 for (std::map<int, Node2D *>::iterator it = nodes.begin(); it != nodes.end(); ++it)
                 {

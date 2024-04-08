@@ -8,10 +8,13 @@ SPDX-License-Identifier: GPL-3.0-or-later
 #include <vector>
 #include <map>
 
+#pragma once
+
 namespace utils
 {
     namespace display
     {
+        class DisplaySystem;
         const int SCREEN_WIDTH = 128;
         const int SCREEN_HEIGHT = 64;
 
@@ -24,6 +27,16 @@ namespace utils
          * @brief The height of the blue lower band of the screen
          */
         const int SCREEN_LB_HEIGHT = SCREEN_HEIGHT - SCREEN_UB_HEIGHT;
+
+        /**
+         * @brief The number of characters that can be displayed on a line
+         */
+        const int SCREEN_NB_CHARS = SCREEN_WIDTH / 6;
+
+        /**
+         * @brief The number of characters that can be displayed on a line
+         */
+        int nbCharsInLine(int fontSize);
 
         /**
          * @brief Print a string centered horizontally on the screen
@@ -42,8 +55,6 @@ namespace utils
          */
         void printUpBar(Adafruit_SSD1306 *dp, const String buf);
 
-        class DisplaySystem;
-
         /**
          * @brief A 2D node that can be drawn on the DisplaySystem
          */
@@ -53,6 +64,9 @@ namespace utils
             int zIndex;
 
         public:
+            /**
+             * @brief Draw a frame
+             */
             virtual void drawFrame(DisplaySystem *displaySystem) = 0;
         };
 
@@ -70,21 +84,6 @@ namespace utils
 
         public:
             SpriteStatic(int16_t _x, int16_t _y, const uint8_t *_bitmap, int16_t _w, int16_t _h);
-            void drawFrame(DisplaySystem *displaySystem) override;
-        };
-
-        class Text : public Node2D
-        {
-        private:
-            String text;
-            int size = 1;
-
-        public:
-            Text(String _text);
-            String getText();
-            void setText(String _text);
-            int getSize();
-            void setSize(int _size);
             void drawFrame(DisplaySystem *displaySystem) override;
         };
 
@@ -108,6 +107,10 @@ namespace utils
         public:
             DisplaySystem(Adafruit_SSD1306 *_dp, int _fps);
             int getFps();
+            /**
+             * @brief Get a pointer to the display
+             */
+            Adafruit_SSD1306 *getDP();
             void addNode2D(Node2D *node, int zIndex);
             void removeNode2D(int zIndex);
             Node2D *getNode2D(int zIndex);

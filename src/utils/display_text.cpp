@@ -59,12 +59,6 @@ namespace utils
             centered = _centered;
         };
 
-        void Text::setPos(int16_t _x, int16_t _y)
-        {
-            x = _x;
-            y = _y;
-        };
-
         void Text::drawFrame(DisplaySystem *displaySystem)
         {
             auto dp = displaySystem->getDP();

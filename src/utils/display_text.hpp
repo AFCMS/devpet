@@ -29,11 +29,6 @@ namespace utils
              */
             bool centered = false;
 
-            /**
-             * @brief The position of the text, or the position of the centered area
-             */
-            int16_t x, y = 0;
-
             static const uint8_t DEFAULT_CHAR_LIMIT = -1;
 
         public:
@@ -50,7 +45,6 @@ namespace utils
             void setCharsMax(uint8_t _charsMax);
             bool isCentered();
             void setCentered(bool _centered);
-            void setPos(int16_t _x, int16_t _y);
             void drawFrame(DisplaySystem *displaySystem) override;
         };
     }

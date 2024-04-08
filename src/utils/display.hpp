@@ -68,10 +68,18 @@ namespace utils
          */
         class Node2D
         {
-        private:
-            int zIndex;
+        protected:
+            /**
+             * @brief The position of the node on the screen
+             */
+            uint8_t x, y;
 
         public:
+            /**
+             * @brief Set the position of the node on the screen
+             */
+            void setPos(uint8_t _x, uint8_t _y);
+
             /**
              * @brief Draw a frame
              */

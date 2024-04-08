@@ -34,17 +34,10 @@ namespace utils
             dp->print(buf);
         };
 
-        void SpriteAnimated::drawFrame(DisplaySystem *displaySystem){
-            // dp->drawBitmap(0, 16, epd_bitmap_dino_esp, 128, 48, SSD1306_WHITE);
-        };
-
-        SpriteStatic::SpriteStatic(int16_t _x, int16_t _y, const uint8_t *_bitmap, int16_t _w, int16_t _h)
+        void Node2D::setPos(uint8_t _x, uint8_t _y)
         {
             x = _x;
             y = _y;
-            bitmap = _bitmap;
-            w = _w;
-            h = _h;
         };
 
         void SpriteStatic::drawFrame(DisplaySystem *displaySystem)

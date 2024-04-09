@@ -1,3 +1,8 @@
+/*
+SPDX-FileCopyrightText: 2024 AFCMS <afcm.contact@gmail.com>
+SPDX-License-Identifier: GPL-3.0-or-later
+*/
+
 #include "display_sprite_static.hpp"
 
 namespace utils

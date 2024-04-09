@@ -91,21 +91,12 @@ namespace utils
             void drawFrame(DisplaySystem *displaySystem) override;
         };
 
-        class SpriteStatic : public Node2D
-        {
-        private:
-            int16_t x, y;
-            const uint8_t *bitmap;
-            int16_t w, h;
-
-        public:
-            SpriteStatic(int16_t _x, int16_t _y, const uint8_t *_bitmap, int16_t _w, int16_t _h);
-            void drawFrame(DisplaySystem *displaySystem) override;
-        };
-
         class DisplaySystem
         {
         private:
+            /**
+             * @brief The rate at which the display is refreshed
+             */
             int fps;
             /**
              * @brief The display to draw on
@@ -118,7 +109,6 @@ namespace utils
              * `std::map` is a sorted container, so the nodes will be drawn in the order of their key
              */
             std::map<int, Node2D *> nodes;
-            // std::vector<Node2D *> nodesSortedByZIndex();
 
         public:
             DisplaySystem(Adafruit_SSD1306 *_dp, int _fps);

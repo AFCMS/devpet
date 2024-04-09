@@ -40,9 +40,8 @@ namespace utils
             y = _y;
         };
 
-        void SpriteStatic::drawFrame(DisplaySystem *displaySystem)
-        {
-            displaySystem->drawBitmap(x, y, bitmap, w, h);
+        void SpriteAnimated::drawFrame(DisplaySystem *displaySystem){
+            // dp->drawBitmap(0, 16, epd_bitmap_dino_esp, 128, 48, SSD1306_WHITE);
         };
 
         DisplaySystem::DisplaySystem(Adafruit_SSD1306 *_dp, int _fps)

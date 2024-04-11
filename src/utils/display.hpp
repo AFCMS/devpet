@@ -19,27 +19,27 @@ namespace utils
         /**
          * @brief The width of the screen
          */
-        static const int SCREEN_WIDTH = 128;
+        static const unsigned char SCREEN_WIDTH = 128;
 
         /**
          * @brief The height of the screen
          */
-        static const int SCREEN_HEIGHT = 64;
+        static const unsigned char SCREEN_HEIGHT = 64;
 
         /**
          * @brief The height of the yellow upper band of the screen
          */
-        static const int SCREEN_UB_HEIGHT = 16;
+        static const unsigned char SCREEN_UB_HEIGHT = 16;
 
         /**
          * @brief The height of the blue lower band of the screen
          */
-        static const int SCREEN_LB_HEIGHT = SCREEN_HEIGHT - SCREEN_UB_HEIGHT;
+        static const unsigned char SCREEN_LB_HEIGHT = SCREEN_HEIGHT - SCREEN_UB_HEIGHT;
 
         /**
          * @brief The number of characters that can be displayed on a line
          */
-        static const int SCREEN_NB_CHARS = SCREEN_WIDTH / 6;
+        static const unsigned char SCREEN_NB_CHARS = SCREEN_WIDTH / 6;
 
         /**
          * @brief The number of characters that can be displayed on a line
@@ -86,18 +86,13 @@ namespace utils
             virtual void drawFrame(DisplaySystem *displaySystem) = 0;
         };
 
-        class SpriteAnimated : public Node2D
-        {
-            void drawFrame(DisplaySystem *displaySystem) override;
-        };
-
         class DisplaySystem
         {
         private:
             /**
              * @brief The rate at which the display is refreshed
              */
-            int fps;
+            unsigned char fps;
             /**
              * @brief The display to draw on
              */
@@ -108,20 +103,20 @@ namespace utils
              *
              * `std::map` is a sorted container, so the nodes will be drawn in the order of their key
              */
-            std::map<int, Node2D *> nodes;
+            std::map<unsigned char, Node2D *> nodes;
 
         public:
-            DisplaySystem(Adafruit_SSD1306 *_dp, int _fps);
-            int getFps();
+            DisplaySystem(Adafruit_SSD1306 *_dp, unsigned char _fps);
+            unsigned char getFps();
             /**
              * @brief Get a pointer to the display
              */
             Adafruit_SSD1306 *getDP();
-            void addNode2D(Node2D *node, int zIndex);
-            void removeNode2D(int zIndex);
-            Node2D *getNode2D(int zIndex);
-            std::map<int, Node2D *> getNodes2D();
-            void setNodes2D(std::map<int, Node2D *> _nodes);
+            void addNode2D(Node2D *node, unsigned char zIndex);
+            void removeNode2D(unsigned char zIndex);
+            Node2D *getNode2D(unsigned char zIndex);
+            std::map<unsigned char, Node2D *> getNodes2D();
+            void setNodes2D(std::map<unsigned char, Node2D *> _nodes);
             void clearDisplay();
             void clearArea(int x, int y, int w, int h);
             void clearUpBar();

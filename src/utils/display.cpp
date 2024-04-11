@@ -40,18 +40,14 @@ namespace utils
             y = _y;
         };
 
-        void SpriteAnimated::drawFrame(DisplaySystem *displaySystem){
-            // dp->drawBitmap(0, 16, epd_bitmap_dino_esp, 128, 48, SSD1306_WHITE);
-        };
-
-        DisplaySystem::DisplaySystem(Adafruit_SSD1306 *_dp, int _fps)
+        DisplaySystem::DisplaySystem(Adafruit_SSD1306 *_dp, unsigned char _fps)
         {
             dp = _dp;
             fps = _fps;
             lastMillis = 0;
         };
 
-        int DisplaySystem::getFps()
+        unsigned char DisplaySystem::getFps()
         {
             return fps;
         };
@@ -61,27 +57,27 @@ namespace utils
             return dp;
         };
 
-        void DisplaySystem::addNode2D(Node2D *node, int zIndex)
+        void DisplaySystem::addNode2D(Node2D *node, unsigned char zIndex)
         {
             nodes[zIndex] = node;
         };
 
-        void DisplaySystem::removeNode2D(int zIndex)
+        void DisplaySystem::removeNode2D(unsigned char zIndex)
         {
             nodes.erase(zIndex);
         };
 
-        Node2D *DisplaySystem::getNode2D(int zIndex)
+        Node2D *DisplaySystem::getNode2D(unsigned char zIndex)
         {
             return nodes[zIndex];
         };
 
-        std::map<int, Node2D *> DisplaySystem::getNodes2D()
+        std::map<unsigned char, Node2D *> DisplaySystem::getNodes2D()
         {
             return nodes;
         };
 
-        void DisplaySystem::setNodes2D(std::map<int, Node2D *> _nodes)
+        void DisplaySystem::setNodes2D(std::map<unsigned char, Node2D *> _nodes)
         {
             nodes = _nodes;
         };
@@ -140,7 +136,7 @@ namespace utils
                 lastMillis = millis();
                 clearDisplay();
 
-                for (std::map<int, Node2D *>::iterator it = nodes.begin(); it != nodes.end(); ++it)
+                for (auto it = nodes.begin(); it != nodes.end(); ++it)
                 {
                     it->second->drawFrame(this);
                 }

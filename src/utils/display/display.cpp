@@ -16,7 +16,7 @@ namespace utils
             return SCREEN_WIDTH / (6 * fontSize);
         };
 
-        void printCenter(Adafruit_SSD1306 *dp, const String buf, int x, int y, uint8_t size = 1)
+        void printCenter(Adafruit_SSD1306 *dp, const String buf, int x, int y, uint8_t size /*= 1*/)
         {
 
             int16_t x1, y1;

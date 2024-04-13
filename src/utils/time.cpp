@@ -62,14 +62,14 @@ namespace utils
             return currentTime;
         };
 
-        String TimeSystem::getTimeString(tm *timeinfo, const char *_fmt = "%A, %B %d %Y %H:%M:%S")
+        String TimeSystem::getTimeString(tm *timeinfo, const char *_fmt)
         {
             char buffer[80];
             strftime(buffer, 80, _fmt, timeinfo);
             return String(buffer);
         };
 
-        String TimeSystem::getCurrentTimeString(const char *_fmt = "%A, %B %d %Y %H:%M:%S")
+        String TimeSystem::getCurrentTimeString(const char *_fmt)
         {
             return getTimeString(&currentTime, _fmt);
         };
@@ -79,7 +79,7 @@ namespace utils
             return getTimeString(&currentTime, "%H:%M:%S");
         };
 
-        String TimeSystem::getInitTimeString(const char *const _fmt = "%A, %B %d %Y %H:%M:%S")
+        String TimeSystem::getInitTimeString(const char *const _fmt)
         {
             return getTimeString(&initTime, _fmt);
         };

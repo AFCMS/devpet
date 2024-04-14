@@ -29,22 +29,22 @@ namespace utils
             text = _text;
         };
 
-        int Text::getFontSize()
+        unsigned char Text::getFontSize()
         {
             return fontSize;
         };
 
-        void Text::setFontSize(int _size)
+        void Text::setFontSize(unsigned char _size)
         {
             fontSize = _size;
         };
 
-        uint8_t Text::getCharsMax()
+        unsigned char Text::getCharsMax()
         {
             return charsMax;
         };
 
-        void Text::setCharsMax(uint8_t _charsMax)
+        void Text::setCharsMax(unsigned char _charsMax)
         {
             charsMax = _charsMax;
         };
@@ -65,8 +65,8 @@ namespace utils
             dp->setTextSize(getFontSize());
             if (isCentered())
             {
-                int16_t x1, y1;
-                uint16_t w, h;
+                short x1, y1;
+                unsigned short w, h;
                 auto cmax = getCharsMax();
                 dp->getTextBounds(getText(), x, y, &x1, &y1, &w, &h);
                 dp->setCursor((x - w / 2) + ((cmax == DEFAULT_CHAR_LIMIT) ? (SCREEN_WIDTH / 2) : ((6 * getFontSize() * getCharsMax()) / 2)), y);

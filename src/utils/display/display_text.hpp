@@ -19,17 +19,17 @@ namespace utils
             /**
              * @brief The size of the text to be displayed
              */
-            int fontSize = 1;
+            unsigned char fontSize = 1;
             /**
              * @brief The maximum number of characters that can be displayed, used to display centered text
              */
-            uint8_t charsMax = -1;
+            unsigned char charsMax = -1;
             /**
              * @brief Whether the text should be centered
              */
             bool centered = false;
 
-            static const uint8_t DEFAULT_CHAR_LIMIT = -1;
+            static const unsigned char DEFAULT_CHAR_LIMIT = -1;
 
         public:
             Text();
@@ -39,10 +39,10 @@ namespace utils
              * @brief Set the node's text
              */
             void setText(String _text);
-            int getFontSize();
-            void setFontSize(int _size);
-            uint8_t getCharsMax();
-            void setCharsMax(uint8_t _charsMax);
+            unsigned char getFontSize();
+            void setFontSize(unsigned char _size);
+            unsigned char getCharsMax();
+            void setCharsMax(unsigned char _charsMax);
             bool isCentered();
             void setCentered(bool _centered);
             void drawFrame(DisplaySystem *displaySystem) override;

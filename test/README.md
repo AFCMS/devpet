@@ -1,3 +1,7 @@
+<!--
+SPDX-FileCopyrightText: 2024 AFCMS <afcm.contact@gmail.com>
+SPDX-License-Identifier: GPL-3.0-or-later
+-->
 
 This directory is intended for PlatformIO Test Runner and project tests.
 
@@ -8,4 +12,5 @@ determine whether they are fit for use. Unit testing finds problems early
 in the development cycle.
 
 More information about PlatformIO Unit Testing:
-- https://docs.platformio.org/en/latest/advanced/unit-testing/index.html
+
+-   https://docs.platformio.org/en/latest/advanced/unit-testing/index.html

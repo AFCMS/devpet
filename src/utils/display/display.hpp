@@ -45,28 +45,6 @@ namespace utils
         static const unsigned char SCREEN_NB_CHARS = SCREEN_WIDTH / 6;
 
         /**
-         * @brief The number of characters that can be displayed on a line
-         */
-        int nbCharsInLine(int fontSize);
-
-        /**
-         * @brief Print a string centered horizontally on the screen
-         * @param dp The display to print to
-         * @param buf The string to print
-         * @param x The x coordinate of the string (in pixels)
-         * @param y The y coordinate of the string (in pixels)
-         * @param size The size of the text to print (1 is 6x8, 2 is 12x16, 3 is 18x24)
-         */
-        void printCenter(Adafruit_SSD1306 *dp, const String buf, int x, int y, uint8_t size = 1);
-
-        /**
-         * @brief Print a string in the upper band of the screen with size 1 (6x8)
-         * @param dp The display to print to
-         * @param buf The string to print
-         */
-        void printUpBar(Adafruit_SSD1306 *dp, const String buf);
-
-        /**
          * @brief A 2D node that can be drawn on the DisplaySystem
          */
         class Node2D
@@ -96,11 +74,14 @@ namespace utils
              * @brief The rate at which the display is refreshed
              */
             unsigned char fps;
+
             /**
              * @brief The display to draw on
              */
             Adafruit_SSD1306 dp;
+
             unsigned long lastMillis;
+
             /**
              * All nodes to render on the screen
              *
@@ -109,25 +90,71 @@ namespace utils
             std::map<unsigned char, Node2D *> nodes;
 
         public:
+            /**
+             * @brief Create a DisplaySystem with a given refresh rate
+             */
             DisplaySystem(unsigned char _fps);
+
+            /**
+             * @brief Get the refresh rate of the display system
+             */
             unsigned char getFps();
+
             /**
              * @brief Get a pointer to the display
              */
             Adafruit_SSD1306 *getDP();
+
+            /**
+             * @brief Add a 2D node to the display system at the given zIndex, or replace the node at zIndex if it already exists
+             */
             void addNode2D(Node2D *node, unsigned char zIndex);
+
+            /**
+             * @brief Remove the 2D node from the display system at the given zIndex
+             */
             void removeNode2D(unsigned char zIndex);
+
+            /**
+             * @brief Get the 2D node from the display system at the given zIndex
+             */
             Node2D *getNode2D(unsigned char zIndex);
+
+            /**
+             * @brief Get all 2D nodes in the display system
+             */
             std::map<unsigned char, Node2D *> getNodes2D();
+
+            /**
+             * @brief Set all 2D nodes in the display system
+             */
             void setNodes2D(std::map<unsigned char, Node2D *> _nodes);
+
+            /**
+             * @brief Clear the display
+             */
             void clearDisplay();
-            void clearArea(int x, int y, int w, int h);
-            void clearUpBar();
-            void printUpBar(const String buf);
+
+            /**
+             * @brief Draw a 2D node on the display
+             */
             void drawNode2D(Node2D *node);
-            void drawBitmap(int16_t x, int16_t y, const uint8_t *bitmap, int16_t w, int16_t h);
+
+            /**
+             * @brief Initialize the display system
+             */
             void begin();
+
+            /**
+             * @brief Update the display. Calls `display()` on the display.
+             *
+             * @internal
+             */
             void display();
+
+            /**
+             * @brief Called in the main loop to update the display at the given refresh rate
+             */
             void step();
         };
     }

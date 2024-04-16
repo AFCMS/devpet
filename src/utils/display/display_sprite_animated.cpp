@@ -48,7 +48,8 @@ namespace utils
                 repeatFrame = 0;
             }
 
-            displaySystem->drawBitmap(x, y, bitmap, w, h);
+            auto dp = displaySystem->getDP();
+            dp->drawBitmap(x, y, bitmap, w, h, SSD1306_WHITE);
         };
     };
 };

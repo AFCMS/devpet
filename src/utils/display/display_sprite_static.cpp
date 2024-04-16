@@ -20,7 +20,8 @@ namespace utils
 
         void SpriteStatic::drawFrame(DisplaySystem *displaySystem)
         {
-            displaySystem->drawBitmap(x, y, bitmap, w, h);
+            auto dp = displaySystem->getDP();
+            dp->drawBitmap(x, y, bitmap, w, h, SSD1306_WHITE);
         };
     };
 };

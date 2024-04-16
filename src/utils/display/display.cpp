@@ -9,29 +9,6 @@ namespace utils
 {
     namespace display
     {
-        int nbCharsInLine(int fontSize)
-        {
-            return SCREEN_WIDTH / (6 * fontSize);
-        };
-
-        void printCenter(Adafruit_SSD1306 *dp, const String buf, int x, int y, uint8_t size /*= 1*/)
-        {
-
-            int16_t x1, y1;
-            uint16_t w, h;
-            dp->setTextSize(size);
-            dp->getTextBounds(buf, x, y, &x1, &y1, &w, &h); // calc width of new string
-            dp->setCursor((x - w / 2) + (128 / 2), y);
-            dp->print(buf);
-        }
-
-        void printUpBar(Adafruit_SSD1306 *dp, const String buf)
-        {
-            dp->setTextSize(1);
-            dp->setCursor(0, 0);
-            dp->print(buf);
-        };
-
         void Node2D::setPos(uint8_t _x, uint8_t _y)
         {
             x = _x;
@@ -84,28 +61,6 @@ namespace utils
         void DisplaySystem::clearDisplay()
         {
             dp.clearDisplay();
-        };
-
-        void DisplaySystem::clearArea(int x, int y, int w, int h)
-        {
-            dp.fillRect(x, y, w, h, SSD1306_BLACK);
-        };
-
-        void DisplaySystem::clearUpBar()
-        {
-            dp.fillRect(0, 0, SCREEN_WIDTH, SCREEN_UB_HEIGHT, SSD1306_BLACK);
-        };
-
-        void DisplaySystem::printUpBar(const String buf)
-        {
-            dp.setTextSize(1);
-            dp.setCursor(0, 0);
-            dp.print(buf);
-        };
-
-        void DisplaySystem::drawBitmap(int16_t x, int16_t y, const uint8_t *bitmap, int16_t w, int16_t h)
-        {
-            dp.drawBitmap(x, y, bitmap, w, h, SSD1306_WHITE);
         };
 
         void DisplaySystem::drawNode2D(Node2D *node)

@@ -10,8 +10,12 @@ SPDX-License-Identifier: GPL-3.0-or-later
 
 #include "utils/comm.hpp"
 #include "utils/input.hpp"
-#include "utils/display.hpp"
-#include "utils/display_text.hpp"
+#include "utils/display/display.hpp"
+#include "utils/display/display_progress_bar.hpp"
+#include "utils/display/display_sprite_animated.hpp"
+#include "utils/display/display_sprite_static.hpp"
+#include "utils/display/display_text.hpp"
+#include "utils/display/display_text_scrolling.hpp"
 #include "utils/time.hpp"
 
 using namespace utils;

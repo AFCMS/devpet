@@ -3,8 +3,6 @@ SPDX-FileCopyrightText: 2024 AFCMS <afcm.contact@gmail.com>
 SPDX-License-Identifier: GPL-3.0-or-later
 */
 
-#include <Arduino.h>
-#include <Adafruit_SSD1306.h>
 #include "display.hpp"
 
 namespace utils
@@ -40,9 +38,10 @@ namespace utils
             y = _y;
         };
 
-        DisplaySystem::DisplaySystem(Adafruit_SSD1306 *_dp, unsigned char _fps)
+        DisplaySystem::DisplaySystem(unsigned char _fps)
         {
-            dp = _dp;
+
+            dp = Adafruit_SSD1306(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, -1);
             fps = _fps;
             lastMillis = 0;
         };
@@ -54,7 +53,7 @@ namespace utils
 
         Adafruit_SSD1306 *DisplaySystem::getDP()
         {
-            return dp;
+            return &dp;
         };
 
         void DisplaySystem::addNode2D(Node2D *node, unsigned char zIndex)
@@ -84,29 +83,29 @@ namespace utils
 
         void DisplaySystem::clearDisplay()
         {
-            dp->clearDisplay();
+            dp.clearDisplay();
         };
 
         void DisplaySystem::clearArea(int x, int y, int w, int h)
         {
-            dp->fillRect(x, y, w, h, SSD1306_BLACK);
+            dp.fillRect(x, y, w, h, SSD1306_BLACK);
         };
 
         void DisplaySystem::clearUpBar()
         {
-            dp->fillRect(0, 0, SCREEN_WIDTH, SCREEN_UB_HEIGHT, SSD1306_BLACK);
+            dp.fillRect(0, 0, SCREEN_WIDTH, SCREEN_UB_HEIGHT, SSD1306_BLACK);
         };
 
         void DisplaySystem::printUpBar(const String buf)
         {
-            dp->setTextSize(1);
-            dp->setCursor(0, 0);
-            dp->print(buf);
+            dp.setTextSize(1);
+            dp.setCursor(0, 0);
+            dp.print(buf);
         };
 
         void DisplaySystem::drawBitmap(int16_t x, int16_t y, const uint8_t *bitmap, int16_t w, int16_t h)
         {
-            dp->drawBitmap(x, y, bitmap, w, h, SSD1306_WHITE);
+            dp.drawBitmap(x, y, bitmap, w, h, SSD1306_WHITE);
         };
 
         void DisplaySystem::drawNode2D(Node2D *node)
@@ -116,17 +115,17 @@ namespace utils
 
         void DisplaySystem::begin()
         {
-            dp->begin(SSD1306_SWITCHCAPVCC, 0x3C);
-            dp->clearDisplay();
-            dp->setTextSize(1);
-            dp->setTextColor(SSD1306_WHITE);
-            dp->setCursor(0, 0);
-            dp->display();
+            dp.begin(SSD1306_SWITCHCAPVCC, 0x3C);
+            dp.clearDisplay();
+            dp.setTextSize(1);
+            dp.setTextColor(SSD1306_WHITE);
+            dp.setCursor(0, 0);
+            dp.display();
         };
 
         void DisplaySystem::display()
         {
-            dp->display();
+            dp.display();
         };
 
         void DisplaySystem::step()

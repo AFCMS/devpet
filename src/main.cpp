@@ -4,9 +4,6 @@ SPDX-License-Identifier: GPL-3.0-or-later
 */
 
 #include <Arduino.h>
-#include <Wire.h>
-#include <Adafruit_GFX.h>
-#include <Adafruit_SSD1306.h>
 
 #include "utils/comm.hpp"
 #include "utils/input.hpp"
@@ -20,9 +17,6 @@ SPDX-License-Identifier: GPL-3.0-or-later
 
 using namespace utils;
 
-#define OLED_RESET 0x3C
-Adafruit_SSD1306 dp(128, 64, &Wire, -1);
-
 enum Buttons
 {
   BUTTON_A = 32,
@@ -30,7 +24,7 @@ enum Buttons
 
 input::InputSystem inputSystem({BUTTON_A});
 
-display::DisplaySystem displaySystem(&dp, 5);
+display::DisplaySystem displaySystem(10);
 
 time::TimeSystem timeSystem;
 

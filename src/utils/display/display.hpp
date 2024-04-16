@@ -5,10 +5,13 @@ SPDX-License-Identifier: GPL-3.0-or-later
 
 #include <Arduino.h>
 #include <Adafruit_SSD1306.h>
+#include <Wire.h>
 #include <vector>
 #include <map>
 
 #pragma once
+
+#define OLED_RESET 0x3C
 
 namespace utils
 {
@@ -96,7 +99,7 @@ namespace utils
             /**
              * @brief The display to draw on
              */
-            Adafruit_SSD1306 *dp;
+            Adafruit_SSD1306 dp;
             unsigned long lastMillis;
             /**
              * All nodes to render on the screen
@@ -106,7 +109,7 @@ namespace utils
             std::map<unsigned char, Node2D *> nodes;
 
         public:
-            DisplaySystem(Adafruit_SSD1306 *_dp, unsigned char _fps);
+            DisplaySystem(unsigned char _fps);
             unsigned char getFps();
             /**
              * @brief Get a pointer to the display

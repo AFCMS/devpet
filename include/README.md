@@ -1,3 +1,7 @@
+<!--
+SPDX-FileCopyrightText: 2024 AFCMS <afcm.contact@gmail.com>
+SPDX-License-Identifier: GPL-3.0-or-later
+-->
 
 This directory is intended for project header files.
 
@@ -31,9 +35,9 @@ header file names, and at most one dot.
 
 Read more about using header files in official GCC documentation:
 
-* Include Syntax
-* Include Operation
-* Once-Only Headers
-* Computed Includes
+-   Include Syntax
+-   Include Operation
+-   Once-Only Headers
+-   Computed Includes
 
 https://gcc.gnu.org/onlinedocs/cpp/Header-Files.html

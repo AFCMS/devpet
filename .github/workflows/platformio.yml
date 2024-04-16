@@ -1,9 +1,12 @@
+# SPDX-FileCopyrightText: 2024 AFCMS <afcm.contact@gmail.com>
+# SPDX-License-Identifier: GPL-3.0-or-later
+
 ---
 name: PlatformIO CI
 
 on:
   push:
-    branches: [ master ]
+    branches: [master]
   pull_request:
   workflow_dispatch:
 
@@ -14,7 +17,7 @@ jobs:
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
-      
+
       - name: Restore Cache
         uses: actions/cache@v4
         with:
@@ -26,7 +29,7 @@ jobs:
       - name: Setup Python 3.11
         uses: actions/setup-python@v5
         with:
-          python-version: '3.11'
+          python-version: "3.11"
 
       - name: Install PlatformIO Core
         run: pip install --upgrade platformio

@@ -15,6 +15,8 @@ SPDX-License-Identifier: GPL-3.0-or-later
 #include "utils/display/display_text_scrolling.hpp"
 #include "utils/time.hpp"
 
+#include "screens/screen_connect.hpp"
+
 using namespace utils;
 
 enum Buttons
@@ -43,9 +45,10 @@ void setup()
 
   commSystem.log("Initializing display system...");
   displaySystem.begin();
-  // testText.setCharsMax(14);
-  testText.setCentered(true);
-  displaySystem.addNode2D(&testText, 1);
+
+  displaySystem.setNodes2D(screens::connect());
+
+  delay(1000);
 }
 
 void loop()

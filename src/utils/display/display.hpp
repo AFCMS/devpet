@@ -67,6 +67,11 @@ namespace utils
             virtual void drawFrame(DisplaySystem *displaySystem) = 0;
         };
 
+        /**
+         * @brief A map of 2D nodes
+         */
+        typedef std::map<unsigned char, Node2D *> Node2DMap;
+
         class DisplaySystem
         {
         private:
@@ -87,7 +92,7 @@ namespace utils
              *
              * `std::map` is a sorted container, so the nodes will be drawn in the order of their key
              */
-            std::map<unsigned char, Node2D *> nodes;
+            Node2DMap nodes;
 
         public:
             /**
@@ -123,12 +128,12 @@ namespace utils
             /**
              * @brief Get all 2D nodes in the display system
              */
-            std::map<unsigned char, Node2D *> getNodes2D();
+            Node2DMap getNodes2D();
 
             /**
              * @brief Set all 2D nodes in the display system
              */
-            void setNodes2D(std::map<unsigned char, Node2D *> _nodes);
+            void setNodes2D(Node2DMap _nodes);
 
             /**
              * @brief Clear the display

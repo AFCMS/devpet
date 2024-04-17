@@ -48,12 +48,12 @@ namespace utils
             return nodes[zIndex];
         };
 
-        std::map<unsigned char, Node2D *> DisplaySystem::getNodes2D()
+        Node2DMap DisplaySystem::getNodes2D()
         {
             return nodes;
         };
 
-        void DisplaySystem::setNodes2D(std::map<unsigned char, Node2D *> _nodes)
+        void DisplaySystem::setNodes2D(Node2DMap _nodes)
         {
             nodes = _nodes;
         };

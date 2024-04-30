@@ -10,65 +10,57 @@ namespace utils
 {
     namespace input
     {
-        void IRAM_ATTR InputSystem::ISR(void *isrData)
-        {
-            volatile ButtonDataISR *data = (volatile ButtonDataISR *)isrData;
-            uint8_t btn = data->button;
-            InputSystem *inputSystem = data->inputSystem;
 
-            if (millis() - inputSystem->getButtonLastMillis(btn) > BUTTON_DEBOUNCE)
-            { // Software debouncing button
-                inputSystem->buttonPressedQueue.insert(btn);
-            }
-            inputSystem->setButtonLastMillis(btn, millis());
+        void Button::begin()
+        {
+            pinMode(pin, INPUT_PULLUP);
+            attachInterruptArg(digitalPinToInterrupt(pin), &ISR, this, CHANGE);
         };
 
-        InputSystem::InputSystem()
+        void Button::interruptChange()
         {
-            buttons = std::vector<uint8_t>();
-            buttonsLastMillis = std::map<uint8_t, unsigned long>();
-            buttonPressedQueue = std::set<uint8_t>();
-        };
-
-        InputSystem::InputSystem(std::vector<uint8_t> _buttons)
-        {
-            buttons = _buttons;
-            buttonsLastMillis = std::map<uint8_t, unsigned long>();
-            buttonPressedQueue = std::set<uint8_t>();
-        };
-
-        void InputSystem::begin()
-        {
-            for (int i = 0; i < buttons.size(); i++)
+            if (millis() - debounceLastMeasure > BUTTON_DEBOUNCE)
             {
-                pinMode(buttons[i], INPUT_PULLUP);
-                buttonsLastMillis[buttons[i]] = 0;
-
-                static volatile ButtonDataISR data = {buttons[i], this};
-                attachInterruptArg(buttons[i], &InputSystem::ISR, (void *)(&data), RISING);
+                lastState = currentState;
+                currentState = !digitalRead(pin);
             }
-        };
+            debounceLastMeasure = millis();
+        }
 
-        std::set<uint8_t> InputSystem::step()
+        bool Button::isPressed()
         {
-            std::set<uint8_t> pressedButtons = buttonPressedQueue;
-            buttonPressedQueue.clear();
-            return pressedButtons;
-        };
+            return currentState;
+        }
 
-        std::vector<uint8_t> InputSystem::getButtons()
+        bool Button::isJustPressed()
         {
-            return buttons;
-        };
+            if (lastState == false)
+            {
+                lastState = currentState;
+                return isPressed();
+            }
+            return false;
+        }
 
-        unsigned long InputSystem::getButtonLastMillis(uint8_t button)
+        bool Button::isJustReleased()
         {
-            return buttonsLastMillis[button];
-        };
+            if (lastState == true)
+            {
+                lastState = currentState;
+                return !isPressed();
+            }
+            return false;
+        }
 
-        void InputSystem::setButtonLastMillis(uint8_t button, unsigned long millis)
+        Button::~Button()
         {
-            buttonsLastMillis[button] = millis;
+            detachInterrupt(pin);
+        }
+
+        void IRAM_ATTR ISR(void *btn)
+        {
+            Button *bt = (Button *)btn;
+            bt->interruptChange();
         };
     }
 };

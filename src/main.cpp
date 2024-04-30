@@ -19,12 +19,8 @@ SPDX-License-Identifier: GPL-3.0-or-later
 
 using namespace utils;
 
-enum Buttons
-{
-  BUTTON_A = 32,
-};
-
-input::InputSystem inputSystem({BUTTON_A});
+input::Button buttonA(32);
+input::Button buttonB(33);
 
 display::DisplaySystem displaySystem(10);
 
@@ -41,7 +37,9 @@ void setup()
   commSystem.begin();
 
   commSystem.log("Initializing input system...");
-  inputSystem.begin();
+
+  buttonA.begin();
+  buttonB.begin();
 
   commSystem.log("Initializing display system...");
   displaySystem.begin();

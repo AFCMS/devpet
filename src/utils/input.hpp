@@ -3,74 +3,67 @@ SPDX-FileCopyrightText: 2024 AFCMS <afcm.contact@gmail.com>
 SPDX-License-Identifier: GPL-3.0-or-later
 */
 
+// Many thanks to AKArien0 for the inspiration
+// https://github.com/AKArien0/arduino-input-handler
+
 #include <Arduino.h>
-#include <vector>
-#include <map>
-#include <set>
 
 namespace utils
 {
     namespace input
     {
-        class InputSystem; // Forward declaration
+        /**
+         * The debounce time for the buttons
+         */
+        const unsigned long BUTTON_DEBOUNCE = 10;
 
-        struct ButtonDataISR
+        class Button
         {
-            uint8_t button;
-            InputSystem *inputSystem;
+        private:
+            /**
+             * @brief The pin of the button
+             */
+            const unsigned char pin;
+            volatile bool currentState = false;
+            volatile bool lastState = false;
+            volatile unsigned int debounceLastMeasure;
+
+        public:
+            Button(unsigned char _pin) : pin(_pin){};
+
+            /**
+             * @brief Initialize the pin, attach the handler to the interrupt
+             */
+            void begin();
+
+            /**
+             * @brief The class interrupt handler for the buttons
+             */
+            void interruptChange();
+
+            /**
+             * @brief Check if the button is pressed
+             */
+            bool isPressed();
+
+            /**
+             * @brief Check if the button has just been pressed
+             */
+            bool isJustPressed();
+
+            /**
+             * @brief Check if the button has just been released
+             */
+            bool isJustReleased();
+
+            ~Button();
         };
 
         /**
-         * A class to handle button presses and debouncing
+         * @brief The base interrupt handler for the buttons, calls the class interrupt handler
+         *
+         * @param btn The button that triggered the interrupt
          */
-        class InputSystem
-        {
-        private:
-            std::vector<uint8_t> buttons;
-            std::map<uint8_t, unsigned long> buttonsLastMillis;
-            std::set<uint8_t> buttonPressedQueue;
-
-            static void ISR(void *buttonPin);
-
-            unsigned long getButtonLastMillis(uint8_t button);
-            void setButtonLastMillis(uint8_t button, unsigned long millis);
-
-        public:
-            InputSystem();
-            /**
-             * Construct a new Input System object
-             *
-             * @param _buttons A vector of button pins
-             */
-            InputSystem(std::vector<uint8_t> _buttons);
-            /**
-             * Initialize the input system
-             *
-             * This method should be called in the setup() function
-             *
-             * It initializes the pins and the interrupts
-             */
-            void begin();
-            /**
-             * Update the input system
-             *
-             * This method should be called in the loop() function
-             *
-             * Iteturns a set of the buttons that have been pressed
-             *
-             * @return A set of the buttons that have been pressed
-             */
-            std::set<uint8_t> step();
-            /**
-             * Get the registered buttons
-             *
-             * @return A vector of the button pins
-             */
-            std::vector<uint8_t> getButtons();
-            /**
-             * The debounce time for the buttons
-             */
-            static const unsigned long BUTTON_DEBOUNCE = 10;
-        };
+        void ISR(void *btn);
     }
 };

@@ -54,17 +54,18 @@ void loop()
   // Update time
   timeSystem.step();
 
-  // Handle input
-  auto pressedButtons = inputSystem.step();
+  ///////////
+  // INPUT //
+  ///////////
 
-  for (auto it = pressedButtons.begin(); it != pressedButtons.end(); ++it)
+  if (buttonA.isJustPressed())
   {
-    switch (*it)
-    {
-    case BUTTON_A:
-      commSystem.log(comm::MT_INFO, "Button A pressed");
-      break;
-    }
+    commSystem.log("Button A pressed");
+  }
+
+  if (buttonB.isJustPressed())
+  {
+    commSystem.log("Button B pressed");
   }
 
   testText.setText(timeSystem.getCurrentHourString());

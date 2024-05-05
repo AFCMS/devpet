@@ -1,6 +1,6 @@
 # SPDX-FileCopyrightText: 2024 AFCMS <afcm.contact@gmail.com>
 # SPDX-License-Identifier: CC0-1.0
-#
+
 # This CITATION.cff file was generated with cffinit.
 # Visit https://bit.ly/cffinit to generate yours today!
 
@@ -14,12 +14,10 @@ authors:
   - email: afcm.contact@gmail.com
     orcid: "https://orcid.org/0009-0005-4161-6228"
     given-names: AFCM
-repository-code: "https://github.com/AFCMS/devpet"
 repository: "https://github.com/AFCMS/devpet_meta"
-abstract: IoT personal developer pet
+abstract: Personal developer pet
 keywords:
   - GitHub
-  - IoT
   - PlatformIO
   - ESP32
   - NodeJS

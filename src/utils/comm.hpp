@@ -34,7 +34,7 @@ namespace utils
         struct CommandResult
         {
             String command_name;
-            String playload;
+            String payload;
         };
 
         /**
@@ -89,7 +89,7 @@ namespace utils
             std::queue<CommandResult> step();
 
             /**
-             * @brief Send a command to the serial communication without playload.
+             * @brief Send a command to the serial communication without payload.
              *
              * @param command The command to be sent, should not contain spaces
              */
@@ -99,9 +99,9 @@ namespace utils
              * @brief Send a command to the serial communication.
              *
              * @param command The command to be sent, should not contain spaces
-             * @param playload The playload to be sent
+             * @param payload The payload to be sent
              */
-            void sendCommand(String command, String playload);
+            void sendCommand(String command, String payload);
 
             /**
              * @brief Send a `log` command to the serial communication.

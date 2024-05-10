@@ -78,6 +78,6 @@ void loop()
     auto command = commands.front();
     commands.pop();
 
-    commSystem.log(comm::MT_INFO, "Command: " + command.command_name + " Payload: " + command.playload);
+    commSystem.log(comm::MT_INFO, "Command: " + command.command_name + " Payload: " + command.payload);
   }
 }

@@ -45,11 +45,20 @@ namespace utils
 
                 String command = line.substring(0, index);
 
-                String payload = line.substring(index + 1);
+                String payload = "";
+
+                if (index != -1)
+                {
+                    payload = line.substring(index + 1);
+                }
 
                 if (command != "")
                 {
                     queue->push({command, payload});
+                }
+                else
+                {
+                    log(MT_ERROR, "Invalid serial data received: " + line);
                 }
                 return true;
             }
@@ -61,9 +70,9 @@ namespace utils
             sendString(command);
         };
 
-        void CommSystem::sendCommand(String command, String playload)
+        void CommSystem::sendCommand(String command, String payload)
         {
-            sendString(command + " " + playload);
+            sendString(command + " " + payload);
         };
 
         void CommSystem::log(LogMessageType type, String message)

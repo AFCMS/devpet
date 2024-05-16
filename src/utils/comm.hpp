@@ -6,6 +6,8 @@ SPDX-License-Identifier: GPL-3.0-or-later
 #include <queue>
 #include <BluetoothSerial.h>
 
+#pragma once
+
 #if !defined(CONFIG_BT_ENABLED)
 #error Bluetooth is not enabled! Please run `make menuconfig` to and enable it
 #endif

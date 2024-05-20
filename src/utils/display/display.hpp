@@ -113,7 +113,7 @@ namespace utils
             /**
              * @brief Add a 2D node to the display system at the given zIndex, or replace the node at zIndex if it already exists
              */
-            void addNode2D(Node2D *node, unsigned char zIndex);
+            void setNode2D(Node2D *node, unsigned char zIndex);
 
             /**
              * @brief Remove the 2D node from the display system at the given zIndex

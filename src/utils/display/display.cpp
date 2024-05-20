@@ -33,7 +33,7 @@ namespace utils
             return &dp;
         };
 
-        void DisplaySystem::addNode2D(Node2D *node, unsigned char zIndex)
+        void DisplaySystem::setNode2D(Node2D *node, unsigned char zIndex)
         {
             nodes[zIndex] = node;
         };

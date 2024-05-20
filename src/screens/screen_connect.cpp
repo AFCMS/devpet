@@ -7,7 +7,7 @@ SPDX-License-Identifier: GPL-3.0-or-later
 
 namespace screens
 {
-    display::Text connectTitle("Waiting for Serial");
+    display::Text connectTitle(0, 0, "Waiting for Serial");
 
     display::SpriteStatic connectBluetoothSprite(0, 32, images::static_bluetooth, 24, 24);
 
@@ -18,7 +18,6 @@ namespace screens
     display::Node2DMap connect()
     {
         // Title in the upper bar
-        connectTitle.setPos(0, 0);
         connectTitle.setCharsMax(21);
         connectTitle.setFontSize(1);
         connectTitle.setCentered(true);

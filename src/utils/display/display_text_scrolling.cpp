@@ -32,15 +32,14 @@ namespace utils
             return extendedText.substring(indexCounter, min((unsigned char)(indexCounter + charsMax), extendedTextLength));
         };
 
-        TextScrolling::TextScrolling()
+        TextScrolling::TextScrolling(unsigned char _x, unsigned char _y, String _text, unsigned char _fontSize, unsigned char _charsMax, unsigned char _speed)
         {
-            text = "";
-            regenerateInternals();
-        };
-
-        TextScrolling::TextScrolling(String _text)
-        {
+            x = _x;
+            y = _y;
             text = _text;
+            fontSize = _fontSize;
+            charsMax = _charsMax;
+            speed = _speed;
             regenerateInternals();
         };
 

@@ -71,14 +71,13 @@ namespace utils
 
         public:
             /**
-             * @brief Create a TextScrolling node with an empty base string
+             * @brief Create a TextScrolling node with a given base string and parameters
+             *
+             * @param _fontSize The size of the text to be displayed (1 is default 6x8, 2 is 12x16, 3 is 18x24, etc.)
+             * @param _charsMax The maximum number of characters that can be displayed
+             * @param _speed The speed of the animations (number of frames between each moves)
              */
-            TextScrolling();
-
-            /**
-             * @brief Create a TextScrolling node with a given base string
-             */
-            TextScrolling(String _text);
+            TextScrolling(unsigned char _x, unsigned char _y, String _text, unsigned char _fontSize, unsigned char _charsMax, unsigned char _speed);
 
             /**
              * @brief Get the node's text

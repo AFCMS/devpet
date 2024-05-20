@@ -9,14 +9,21 @@ namespace utils
 {
     namespace display
     {
-        Text::Text()
+        Text::Text(unsigned char _x, unsigned char _y, String _text)
         {
-            text = "";
+            x = _x;
+            y = _y;
+            text = _text;
         };
 
-        Text::Text(String _text)
+        Text::Text(unsigned char _x, unsigned char _y, String _text, unsigned char _fontSize, unsigned char _charsMax, bool _centered)
         {
+            x = _x;
+            y = _y;
             text = _text;
+            fontSize = _fontSize;
+            charsMax = _charsMax;
+            centered = _centered;
         };
 
         String Text::getText()

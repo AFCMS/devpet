@@ -18,14 +18,17 @@ namespace utils
              * @brief The text to be displayed
              */
             String text;
+
             /**
              * @brief The size of the text to be displayed
              */
             unsigned char fontSize = 1;
+
             /**
              * @brief The maximum number of characters that can be displayed, used to display centered text
              */
             unsigned char charsMax = -1;
+
             /**
              * @brief Whether the text should be centered
              */
@@ -35,14 +38,18 @@ namespace utils
 
         public:
             /**
-             * @brief Create a Text node with an empty base string
-             */
-            Text();
-
-            /**
              * @brief Create a Text node with a given base string
              */
-            Text(String _text);
+            Text(unsigned char _x, unsigned char _y, String _text);
+
+            /**
+             * @brief Create a Text node with a given base string and parameters
+             *
+             * @param _fontSize The size of the text to be displayed (1 is default 6x8, 2 is 12x16, 3 is 18x24, etc.)
+             * @param _charsMax The maximum number of characters that can be displayed, used to display centered text
+             * @param _centered Whether the text should be centered
+             */
+            Text(unsigned char _x, unsigned char _y, String _text, unsigned char _fontSize, unsigned char _charsMax, bool _centered);
 
             /**
              * @brief Get the node's text

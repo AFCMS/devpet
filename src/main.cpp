@@ -101,6 +101,14 @@ void loop()
     {
       devPetGraphics.pushIssue(command.payload);
     }
+    else if (command.command_name == "new-pr")
+    {
+      devPetGraphics.pushPullRequest(command.payload);
+    }
+    else if (command.command_name == "new-commits")
+    {
+      devPetGraphics.pushNewCommits(command.payload.toInt());
+    }
   }
 
   devPetGraphics.step();

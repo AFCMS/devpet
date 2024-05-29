@@ -56,6 +56,14 @@ void DevPetGraphics::pushPullRequest(String pullRequestTitle)
     feedItemLastUpdate = millis();
 }
 
+void DevPetGraphics::pushNewCommits(long nbCommits)
+{
+    displaySystem.setNode2D(FEED_ICON_Z, &feedNewCommits);
+    feedTitle1.setText("Commits");
+    feedTitle2.setText(String(nbCommits) + " new commits");
+    feedItemLastUpdate = millis();
+}
+
 bool DevPetGraphics::internalFeedIsDisplayingItem()
 {
     return millis() - feedItemLastUpdate < FEED_ITEM_TIMEOUT;

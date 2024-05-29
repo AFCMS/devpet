@@ -11,6 +11,7 @@ SPDX-License-Identifier: GPL-3.0-or-later
 #include "display/display_text_scrolling.hpp"
 
 #include "images/music_note.hpp"
+#include "images/git_commit.hpp"
 #include "images/git_pull_request.hpp"
 #include "images/issue_opened.hpp"
 
@@ -63,6 +64,7 @@ private:
     display::SpriteStatic feedMusicIcon{0, 0, images::static_music_note, 16, 16};
     display::SpriteStatic feedGitPullRequest{0, 0, images::static_git_pull_request, 16, 16};
     display::SpriteStatic feedIssueOpened{0, 0, images::static_issue_opened, 16, 16};
+    display::SpriteStatic feedNewCommits{0, 0, images::static_git_commit, 16, 16};
 
     static const unsigned char FEED_TITLE_1_Z = 11;
     display::Text feedTitle1{18, 0, "", 1, 18, true};
@@ -90,4 +92,6 @@ public:
     void pushIssue(String issueTitle);
 
     void pushPullRequest(String pullRequestTitle);
+
+    void pushNewCommits(long nbCommits);
 };

@@ -11,7 +11,6 @@ SPDX-License-Identifier: GPL-3.0-or-later
 #include "display/display_text_scrolling.hpp"
 
 #include "images/music_note.hpp"
-#include "images/git_merge.hpp"
 #include "images/git_pull_request.hpp"
 #include "images/issue_opened.hpp"
 

@@ -136,6 +136,11 @@ namespace utils
             void setNodes2D(Node2DMap _nodes);
 
             /**
+             * @brief Clear all 2D nodes in the display system
+             */
+            void clearNodes2D();
+
+            /**
              * @brief Clear the display
              */
             void clearDisplay();

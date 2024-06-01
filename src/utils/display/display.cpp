@@ -58,6 +58,11 @@ namespace utils
             nodes = _nodes;
         };
 
+        void utils::display::DisplaySystem::clearNodes2D()
+        {
+            nodes.clear();
+        };
+
         void DisplaySystem::clearDisplay()
         {
             dp.clearDisplay();

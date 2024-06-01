@@ -63,11 +63,13 @@ void loop()
   if (buttonA.isJustPressed())
   {
     commSystem.log("Button A pressed");
+    devPetGraphics.setCurrentPage(DevPetPage::Main);
   }
 
   if (buttonB.isJustPressed())
   {
     commSystem.log("Button B pressed");
+    devPetGraphics.setCurrentPage(DevPetPage::Stats);
   }
 
   // Commands Input

@@ -9,8 +9,21 @@ DevPetGraphics::DevPetGraphics(display::DisplaySystem &_displaySystem, DevPet &_
 
 void DevPetGraphics::begin()
 {
-    displaySystem.setNode2D(FEED_TITLE_1_Z, &feedTitle1);
-    displaySystem.setNode2D(FEED_TITLE_2_Z, &feedTitle2);
+    healthBarSps[0] = &healthBarSp1;
+    healthBarSps[1] = &healthBarSp2;
+    healthBarSps[2] = &healthBarSp3;
+    healthBarSps[3] = &healthBarSp4;
+    healthBarSps[4] = &healthBarSp5;
+
+    healthBar.setVal(255);
+
+    for (unsigned char i = 0; i < 5; i++)
+    {
+        healthBarSps[i]->setSpeed(4);
+    }
+
+    updateDisplay();
+    updateDisplayedNodes();
 }
 
 void DevPetGraphics::step()
@@ -21,6 +34,12 @@ void DevPetGraphics::step()
         feedMusicName = "";
     }
 
+    updateDisplay();
+}
+
+void DevPetGraphics::updateDisplay()
+{
+    // Update Music feed item
     if (millis() - feedItemLastUpdate > FEED_ITEM_TIMEOUT)
     {
         if (feedMusicName != "")
@@ -34,6 +53,43 @@ void DevPetGraphics::step()
     }
 }
 
+void DevPetGraphics::updateDisplayedNodes()
+{
+    displaySystem.clearNodes2D();
+
+    switch (getCurrentPage())
+    {
+    case DevPetPage::Main:
+        displaySystem.setNode2D(FEED_TITLE_1_Z, &feedTitle1);
+        displaySystem.setNode2D(FEED_TITLE_2_Z, &feedTitle2);
+        // displaySystem.setNode2D(220, &healthBar);
+        displaySystem.setNode2D(221, &testRect);
+        displaySystem.setNode2D(222, &healthBarSp1);
+        displaySystem.setNode2D(223, &healthBarSp2);
+        displaySystem.setNode2D(224, &healthBarSp3);
+        displaySystem.setNode2D(225, &healthBarSp4);
+        displaySystem.setNode2D(226, &healthBarSp5);
+        break;
+    case DevPetPage::Stats:
+        displaySystem.setNode2D(230, &test2dPage);
+        break;
+    default:
+        break;
+    }
+}
+
+DevPetPage DevPetGraphics::getCurrentPage()
+{
+    return currentPage;
+}
+
+void DevPetGraphics::setCurrentPage(DevPetPage page)
+{
+    currentPage = page;
+
+    updateDisplayedNodes();
+}
+
 void DevPetGraphics::playMusic(String musicTitle)
 {
     feedMusicName = musicTitle;
@@ -42,26 +98,35 @@ void DevPetGraphics::playMusic(String musicTitle)
 
 void DevPetGraphics::pushIssue(String issueTitle)
 {
-    displaySystem.setNode2D(FEED_ICON_Z, &feedIssueOpened);
-    feedTitle1.setText("Issue");
-    feedTitle2.setText(issueTitle);
-    feedItemLastUpdate = millis();
+    if (currentPage == DevPetPage::Main)
+    {
+        displaySystem.setNode2D(FEED_ICON_Z, &feedIssueOpened);
+        feedTitle1.setText("Issue");
+        feedTitle2.setText(issueTitle);
+        feedItemLastUpdate = millis();
+    }
 }
 
 void DevPetGraphics::pushPullRequest(String pullRequestTitle)
 {
-    displaySystem.setNode2D(FEED_ICON_Z, &feedGitPullRequest);
-    feedTitle1.setText("Pull Request");
-    feedTitle2.setText(pullRequestTitle);
-    feedItemLastUpdate = millis();
+    if (currentPage == DevPetPage::Main)
+    {
+        displaySystem.setNode2D(FEED_ICON_Z, &feedGitPullRequest);
+        feedTitle1.setText("Pull Request");
+        feedTitle2.setText(pullRequestTitle);
+        feedItemLastUpdate = millis();
+    }
 }
 
 void DevPetGraphics::pushNewCommits(long nbCommits)
 {
-    displaySystem.setNode2D(FEED_ICON_Z, &feedNewCommits);
-    feedTitle1.setText("Commits");
-    feedTitle2.setText(String(nbCommits) + " new commits");
-    feedItemLastUpdate = millis();
+    if (currentPage == DevPetPage::Main)
+    {
+        displaySystem.setNode2D(FEED_ICON_Z, &feedNewCommits);
+        feedTitle1.setText("Commits");
+        feedTitle2.setText(String(nbCommits) + " new commits");
+        feedItemLastUpdate = millis();
+    }
 }
 
 bool DevPetGraphics::internalFeedIsDisplayingItem()

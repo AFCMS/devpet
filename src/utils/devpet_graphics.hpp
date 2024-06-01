@@ -6,6 +6,8 @@ SPDX-License-Identifier: GPL-3.0-or-later
 #include "devpet.hpp"
 #include "comm.hpp"
 #include "display/display.hpp"
+#include "display/display_rect.hpp"
+#include "display/display_sprite_bar.hpp"
 #include "display/display_sprite_static.hpp"
 #include "display/display_text.hpp"
 #include "display/display_text_scrolling.hpp"
@@ -13,11 +15,18 @@ SPDX-License-Identifier: GPL-3.0-or-later
 #include "images/music_note.hpp"
 #include "images/git_commit.hpp"
 #include "images/git_pull_request.hpp"
+#include "images/heart.hpp"
 #include "images/issue_opened.hpp"
 
 #pragma once
 
 using namespace utils;
+
+enum DevPetPage
+{
+    Main,
+    Stats,
+};
 
 class DevPetGraphics
 {
@@ -38,6 +47,11 @@ private:
      * @brief Reference to the communication system
      */
     comm::CommSystem &commSystem;
+
+    /**
+     * @brief Current page
+     */
+    DevPetPage currentPage = DevPetPage::Main;
 
     // Top Feed
     //
@@ -75,6 +89,24 @@ private:
     static const unsigned char FEED_TITLE_2_Z = 12;
     display::TextScrolling feedTitle2{18, 8, "", 1, 18, 1};
 
+    display::Rect testRect{0, 17, 128, 1};
+
+    // Health Bar
+
+    display::SpriteAnimated healthBarSp1{9, 0, images::heart, images::heart_num_frames, 9, 9};
+    display::SpriteAnimated healthBarSp2{18, 0, images::heart, images::heart_num_frames, 9, 9};
+    display::SpriteAnimated healthBarSp3{27, 0, images::heart, images::heart_num_frames, 9, 9};
+    display::SpriteAnimated healthBarSp4{36, 0, images::heart, images::heart_num_frames, 9, 9};
+    display::SpriteAnimated healthBarSp5{45, 0, images::heart, images::heart_num_frames, 9, 9};
+
+    display::SpriteAnimated *healthBarSps[5];
+    display::SpriteBar healthBar{5, healthBarSps, 255};
+
+    display::Text test2dPage{0, 0, "2D Page"};
+
+    void updateDisplay();
+    void updateDisplayedNodes();
+
     bool internalFeedIsDisplayingItem();
     bool internalFeedHasJustDisplayedItem();
     void internalFeedReset();
@@ -86,6 +118,10 @@ public:
     void begin();
 
     void step();
+
+    DevPetPage getCurrentPage();
+
+    void setCurrentPage(DevPetPage page);
 
     void playMusic(String musicTitle);
 

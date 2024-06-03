@@ -43,6 +43,41 @@ public:
     void log(utils::comm::CommSystem &comm);
 
     /**
+     * @brief Get the mood of the DevPet
+     */
+    unsigned char getMood();
+
+    /**
+     * @brief Set the mood of the DevPet
+     */
+    void setMood(unsigned char mood);
+
+    /**
+     * @brief Get the energy of the DevPet
+     */
+    unsigned char getEnergy();
+
+    /**
+     * @brief Set the energy of the DevPet
+     */
+    void setEnergy(unsigned char energy);
+
+    /**
+     * @brief Get the productivity of the DevPet
+     */
+    unsigned char getProductivity();
+
+    /**
+     * @brief Set the productivity of the DevPet
+     */
+    void setProductivity(unsigned char productivity);
+
+    /**
+     * @brief Get the health of the DevPet
+     */
+    unsigned char getHealth();
+
+    /**
      * @brief Update the health of the DevPet
      *
      * The health is calculated as the geometric mean of the mood, energy and productivity.

@@ -40,6 +40,9 @@ void DevPetGraphics::step()
         feedMusicName = "";
     }
 
+    // Update health bar
+    healthBar.setVal(devPet.getHealth());
+
     updateDisplay();
 }
 

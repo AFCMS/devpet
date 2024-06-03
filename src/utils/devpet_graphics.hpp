@@ -41,7 +41,7 @@ private:
     /**
      * @brief Reference to the DevPet instance, to get data to display
      */
-    const DevPet &devPet;
+    DevPet &devPet;
 
     /**
      * @brief Reference to the communication system

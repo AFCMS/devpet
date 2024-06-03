@@ -26,7 +26,8 @@ namespace utils
         void ProgressBar::drawFrame(DisplaySystem *displaySystem)
         {
             auto dp = displaySystem->getDP();
-            dp->fillRect(x, y, val * w / maxVal, h, SSD1306_WHITE);
+            dp->drawRect(x, y, w, h, SSD1306_WHITE);
+            dp->fillRect(x + 1, y + 1, val * (w - 1) / maxVal, h - 1, SSD1306_WHITE);
         };
     }
 }

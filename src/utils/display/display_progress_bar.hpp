@@ -12,7 +12,7 @@ namespace utils
     namespace display
     {
         /**
-         * @brief A 2D rectangle which only fills a determined amount of it's width
+         * @brief A 2D progress bar
          */
         class ProgressBar : public Node2D
         {

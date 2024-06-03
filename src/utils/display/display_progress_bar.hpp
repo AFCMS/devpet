@@ -26,7 +26,7 @@ namespace utils
              *
              * @param _maxVal The maximum value of the progress bar
              */
-            ProgressBar(unsigned char _w, unsigned char _h, unsigned char _maxVal);
+            ProgressBar(unsigned char _x, unsigned char _y, unsigned char _w, unsigned char _h, unsigned char _maxVal);
 
             /**
              * @brief Set the progress bar value

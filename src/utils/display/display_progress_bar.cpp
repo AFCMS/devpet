@@ -9,8 +9,10 @@ namespace utils
 {
     namespace display
     {
-        ProgressBar::ProgressBar(unsigned char _w, unsigned char _h, unsigned char _maxVal)
+        ProgressBar::ProgressBar(unsigned char _x, unsigned char _y, unsigned char _w, unsigned char _h, unsigned char _maxVal)
         {
+            x = _x;
+            y = _y;
             w = _w;
             h = _h;
             maxVal = _maxVal;

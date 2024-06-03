@@ -27,7 +27,7 @@ namespace utils
         {
             auto dp = displaySystem->getDP();
             dp->drawRect(x, y, w, h, SSD1306_WHITE);
-            dp->fillRect(x + 1, y + 1, val * (w - 1) / maxVal, h - 1, SSD1306_WHITE);
+            dp->fillRect(x + 1, y + 1, val * w / maxVal, h - 1, SSD1306_WHITE);
         };
     }
 }

@@ -53,13 +53,13 @@ namespace utils
             /**
              * @brief The position of the node on the screen
              */
-            uint8_t x, y;
+            unsigned char x, y = 0;
 
         public:
             /**
              * @brief Set the position of the node on the screen
              */
-            void setPos(uint8_t _x, uint8_t _y);
+            void setPos(unsigned char _x, unsigned char _y);
 
             /**
              * @brief Draw a frame

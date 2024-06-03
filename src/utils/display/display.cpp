@@ -9,7 +9,7 @@ namespace utils
 {
     namespace display
     {
-        void Node2D::setPos(uint8_t _x, uint8_t _y)
+        void Node2D::setPos(unsigned char _x, unsigned char _y)
         {
             x = _x;
             y = _y;

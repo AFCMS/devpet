@@ -28,6 +28,12 @@ void DevPetGraphics::begin()
 
 void DevPetGraphics::step()
 {
+    if (!hasFirstDisplayed)
+    {
+        hasFirstDisplayed = true;
+        updateDisplayedNodes();
+    }
+
     // Reset music name if no update in a while
     if (millis() - lastTimeMusicUpdated > FEED_MUSIC_TIMEOUT)
     {

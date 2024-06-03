@@ -53,6 +53,8 @@ private:
      */
     DevPetPage currentPage = DevPetPage::Main;
 
+    bool hasFirstDisplayed = false;
+
     // Top Feed
     //
     // This takes place on the 16px top yellow bar of the screen and display:

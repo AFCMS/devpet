@@ -9,34 +9,22 @@ namespace utils
 {
     namespace display
     {
-        ProgressBar::ProgressBar(unsigned char _w, unsigned char _h)
+        ProgressBar::ProgressBar(unsigned char _w, unsigned char _h, unsigned char _maxVal)
         {
             w = _w;
             h = _h;
-            percent = 0;
-        };
+            maxVal = _maxVal;
+        }
 
-        ProgressBar::ProgressBar(unsigned char _w, unsigned char _h, unsigned char _percent)
+        void ProgressBar::setVal(unsigned char _newVal)
         {
-            w = _w;
-            h = _h;
-            percent = _percent;
-        };
-
-        unsigned char ProgressBar::getPercent()
-        {
-            return percent;
-        };
-
-        void ProgressBar::setPercent(unsigned char _percent)
-        {
-            percent = _percent;
-        };
+            val = _newVal;
+        }
 
         void ProgressBar::drawFrame(DisplaySystem *displaySystem)
         {
             auto dp = displaySystem->getDP();
-            dp->fillRect(x, y, w * percent / 100, h, SSD1306_WHITE);
+            dp->fillRect(x, y, val * w / maxVal, h, SSD1306_WHITE);
         };
     }
 }

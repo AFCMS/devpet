@@ -19,8 +19,9 @@ SPDX-License-Identifier: GPL-3.0-or-later
 
 using namespace utils;
 
-input::Button buttonA(32);
-input::Button buttonB(33);
+input::Button buttonLeft(32);
+input::Button buttonCenter(25);
+input::Button buttonRight(12);
 
 display::DisplaySystem displaySystem(10);
 
@@ -39,8 +40,9 @@ void setup()
 
   commSystem.log("Initializing input system...");
 
-  buttonA.begin();
-  buttonB.begin();
+  buttonLeft.begin();
+  buttonCenter.begin();
+  buttonRight.begin();
 
   commSystem.log("Initializing display system...");
   displaySystem.begin();
@@ -51,6 +53,8 @@ void setup()
   delay(1000);
 }
 
+unsigned long lastLoggedDevPet = 0;
+
 void loop()
 {
   // Update time
@@ -60,16 +64,28 @@ void loop()
   // INPUT //
   ///////////
 
-  if (buttonA.isJustPressed())
+  if (buttonLeft.isJustPressed())
   {
-    commSystem.log("Button A pressed");
+    commSystem.log("Button Left pressed");
     devPetGraphics.setCurrentPage(DevPetPage::Main);
+    devPet.setEnergy(constrain(devPet.getEnergy() + 10, 0, 255));
+    devPet.setMood(constrain(devPet.getMood() + 10, 0, 255));
+    devPet.setProductivity(constrain(devPet.getProductivity() + 10, 0, 255));
   }
 
-  if (buttonB.isJustPressed())
+  if (buttonRight.isJustPressed())
   {
-    commSystem.log("Button B pressed");
+    commSystem.log("Button Right pressed");
     devPetGraphics.setCurrentPage(DevPetPage::Stats);
+    devPet.setEnergy(constrain(devPet.getEnergy() - 10, 0, 255));
+    devPet.setMood(constrain(devPet.getMood() - 10, 0, 255));
+    devPet.setProductivity(constrain(devPet.getProductivity() - 10, 0, 255));
+  }
+
+  if (buttonCenter.isJustPressed())
+  {
+    commSystem.log("Button Center pressed");
+    devPet.setEnergy(125);
   }
 
   // Commands Input
@@ -115,6 +131,12 @@ void loop()
 
   devPetGraphics.step();
   displaySystem.step();
+
+  if (millis() - lastLoggedDevPet > 2000)
+  {
+    devPet.log(commSystem);
+    lastLoggedDevPet = millis();
+  }
 
   /*switch (state)
   {

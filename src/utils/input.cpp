@@ -3,6 +3,9 @@ SPDX-FileCopyrightText: 2024 AFCMS <afcm.contact@gmail.com>
 SPDX-License-Identifier: GPL-3.0-or-later
 */
 
+// Many thanks to AKArien0 for the inspiration
+// https://github.com/AKArien0/arduino-input-handler
+
 #include <Arduino.h>
 #include "input.hpp"
 
@@ -11,15 +14,16 @@ namespace utils
     namespace input
     {
 
-        void Button::begin()
+        void Button::begin(int _debounceTime)
         {
             pinMode(pin, INPUT_PULLUP);
-            attachInterruptArg(digitalPinToInterrupt(pin), &ISR, this, CHANGE);
+            debounceTime = debounceTime;
+            attachInterruptArg(digitalPinToInterrupt(pin), ISR, this, CHANGE);
         };
 
         void Button::interruptChange()
         {
-            if (millis() - debounceLastMeasure > BUTTON_DEBOUNCE)
+            if (millis() - debounceLastMeasure > debounceTime)
             {
                 lastState = currentState;
                 currentState = !digitalRead(pin);

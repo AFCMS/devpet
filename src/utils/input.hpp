@@ -15,7 +15,7 @@ namespace utils
         /**
          * The debounce time for the buttons
          */
-        const unsigned long BUTTON_DEBOUNCE = 10;
+        const unsigned int BUTTON_DEBOUNCE = 10;
 
         class Button
         {
@@ -26,15 +26,16 @@ namespace utils
             const unsigned char pin;
             volatile bool currentState = false;
             volatile bool lastState = false;
+            volatile unsigned int debounceTime;
             volatile unsigned int debounceLastMeasure;
 
         public:
-            Button(unsigned char _pin) : pin(_pin){};
+            Button(unsigned char _pin) : pin(_pin) {};
 
             /**
              * @brief Initialize the pin, attach the handler to the interrupt
              */
-            void begin();
+            void begin(int _debounceTime = BUTTON_DEBOUNCE);
 
             /**
              * @brief The class interrupt handler for the buttons
@@ -64,6 +65,6 @@ namespace utils
          *
          * @param btn The button that triggered the interrupt
          */
-        void ISR(void *btn);
+        static void ISR(void *btn);
     }
 };

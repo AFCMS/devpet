@@ -1,0 +1,20 @@
+/*
+SPDX-FileCopyrightText: 2024 AFCMS <afcm.contact@gmail.com>
+SPDX-License-Identifier: GPL-3.0-or-later
+*/
+
+#include <Arduino.h>
+
+#pragma once
+
+namespace images
+{
+    /**
+     * @brief Button center, 13x13px, 26 bytes
+     *
+     * Hand-drawn by @AFCMS
+     */
+    const unsigned char static_button_center[] PROGMEM = {
+        0x00, 0x00, 0x3f, 0xe0, 0x60, 0x30, 0x47, 0x10, 0x4f, 0x90, 0x5f, 0xd0, 0x5f, 0xd0, 0x5f, 0xd0,
+        0x4f, 0x90, 0x47, 0x10, 0x60, 0x30, 0x3f, 0xe0, 0x00, 0x00};
+};

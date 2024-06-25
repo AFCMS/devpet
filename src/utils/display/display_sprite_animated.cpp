@@ -23,13 +23,29 @@ namespace utils
         {
             selectedAnim = anim;
             selectedFrame = 0;
-            stopAfter = false;
+            stopLoop = false;
         };
+
+        void SpriteAnimated::setAnimAfter(unsigned char _afterAnim)
+        {
+            selectedAnimAfter = _afterAnim;
+            stopLoopAfter = false;
+        }
 
         void SpriteAnimated::setSpeed(unsigned char _speed)
         {
             speed = _speed;
         };
+
+        void SpriteAnimated::doStopLoop()
+        {
+            stopLoop = true;
+        }
+
+        void SpriteAnimated::doStopLoopAfter()
+        {
+            stopLoopAfter = true;
+        }
 
         void SpriteAnimated::drawFrame(DisplaySystem *displaySystem)
         {
@@ -40,7 +56,15 @@ namespace utils
             {
                 if (selectedFrame == numFrames[selectedAnim] - 1)
                 {
-                    if (!stopAfter)
+                    if (selectedAnimAfter != NO_AFTER_ANIM)
+                    {
+                        setAnim(selectedAnimAfter);
+                        selectedAnimAfter = NO_AFTER_ANIM;
+                        stopLoop = stopLoopAfter;
+                        stopLoopAfter = false;
+                        bitmap = frames[selectedAnim][selectedFrame];
+                    }
+                    else if (!stopLoop)
                     {
                         selectedFrame = 0;
                     }
@@ -55,10 +79,5 @@ namespace utils
             auto dp = displaySystem->getDP();
             dp->drawBitmap(x, y, bitmap, w, h, SSD1306_WHITE);
         };
-
-        void SpriteAnimated::doStopAfter()
-        {
-            stopAfter = true;
-        }
     };
 };

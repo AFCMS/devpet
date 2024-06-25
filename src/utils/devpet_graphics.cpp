@@ -25,8 +25,10 @@ void DevPetGraphics::begin()
 
     healthBar.setVal(255);
 
-    testSp.setAnim(2);
-    testSp.doStopAfter();
+    testSp.setAnim(1);
+    testSp.setAnimAfter(2);
+    testSp.doStopLoopAfter();
+    // testSp.doStopLoop();
     testSp.setSpeed(2);
 
     for (unsigned char i = 0; i < 5; i++)

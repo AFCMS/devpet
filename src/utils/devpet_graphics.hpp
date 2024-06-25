@@ -22,6 +22,7 @@ SPDX-License-Identifier: GPL-3.0-or-later
 #include "images/heart.hpp"
 #include "images/issue_opened.hpp"
 #include "images/dino.hpp"
+#include "images/dino_big.hpp"
 
 #pragma once
 
@@ -122,7 +123,7 @@ private:
     display::SpriteAnimated *healthBarSps[5];
     display::SpriteBar healthBar{5, healthBarSps, 255};
 
-    display::SpriteStatic testSp{9, 40, images::static_dino, 25, 25};
+    display::SpriteAnimated testSp{18, 18, images::dino_big, images::dino_big_numframes, 48, 48};
 
     // Stats Page
 

@@ -32,7 +32,7 @@ namespace utils
             /**
              * @brief The width and height of the bitmaps in the frames.
              */
-            int16_t w, h;
+            unsigned char w, h;
             unsigned char selectedAnim = 0;
             unsigned char selectedFrame = 0;
             /**
@@ -41,8 +41,10 @@ namespace utils
             unsigned char speed = 1;
             unsigned char repeatFrame = 0;
 
+            bool stopAfter = false;
+
         public:
-            SpriteAnimated(int16_t _x, int16_t _y, const unsigned char ***_frames, const unsigned char *_numFrames, int16_t _w, int16_t _h);
+            SpriteAnimated(unsigned char _x, unsigned char _y, const unsigned char ***_frames, const unsigned char *_numFrames, unsigned char _w, unsigned char _h);
             /**
              * @brief Set the animation to play, use an enum to name the animations.
              */
@@ -54,6 +56,10 @@ namespace utils
              */
             void setSpeed(unsigned char _speed);
             void drawFrame(DisplaySystem *displaySystem) override;
+            /**
+             * @brief Stop the animation at the last frame instead of looping.
+             */
+            void doStopAfter();
         };
     };
 };

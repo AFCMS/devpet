@@ -9,7 +9,7 @@ namespace utils
 {
     namespace display
     {
-        SpriteAnimated::SpriteAnimated(int16_t _x, int16_t _y, const unsigned char ***_frames, const unsigned char *_numFrames, int16_t _w, int16_t _h)
+        SpriteAnimated::SpriteAnimated(unsigned char _x, unsigned char _y, const unsigned char ***_frames, const unsigned char *_numFrames, unsigned char _w, unsigned char _h)
         {
             x = _x;
             y = _y;
@@ -23,6 +23,7 @@ namespace utils
         {
             selectedAnim = anim;
             selectedFrame = 0;
+            stopAfter = false;
         };
 
         void SpriteAnimated::setSpeed(unsigned char _speed)
@@ -39,7 +40,10 @@ namespace utils
             {
                 if (selectedFrame == numFrames[selectedAnim] - 1)
                 {
-                    selectedFrame = 0;
+                    if (!stopAfter)
+                    {
+                        selectedFrame = 0;
+                    }
                 }
                 else
                 {
@@ -51,5 +55,10 @@ namespace utils
             auto dp = displaySystem->getDP();
             dp->drawBitmap(x, y, bitmap, w, h, SSD1306_WHITE);
         };
+
+        void SpriteAnimated::doStopAfter()
+        {
+            stopAfter = true;
+        }
     };
 };

@@ -28,6 +28,11 @@ void DevPet::setMood(unsigned char mood)
     saveData();
 }
 
+void DevPet::boostMood()
+{
+    setMood(constrain(getMood() + 20, 0, 255));
+}
+
 unsigned char DevPet::getEnergy()
 {
     return energy;
@@ -40,6 +45,11 @@ void DevPet::setEnergy(unsigned char energy)
     saveData();
 }
 
+void DevPet::boostEnergy()
+{
+    setEnergy(constrain(getEnergy() + 20, 0, 255));
+}
+
 unsigned char DevPet::getProductivity()
 {
     return productivity;
@@ -50,6 +60,11 @@ void DevPet::setProductivity(unsigned char productivity)
     this->productivity = productivity;
     updateHealth();
     saveData();
+}
+
+void DevPet::boostProductivity()
+{
+    setProductivity(constrain(getProductivity() + 20, 0, 255));
 }
 
 unsigned char DevPet::getHealth()
@@ -72,8 +87,20 @@ void DevPet::saveData()
 
 void DevPet::loadData()
 {
-    mood = preferences.getUChar("mood", 0);
-    energy = preferences.getUChar("energy", 0);
-    productivity = preferences.getUChar("productivity", 0);
+    mood = preferences.getUChar("mood", DEFAULT_MOOD);
+    energy = preferences.getUChar("energy", DEFAULT_ENERGY);
+    productivity = preferences.getUChar("productivity", DEFAULT_PRODUCTIVITY);
     updateHealth();
+}
+
+void DevPet::step()
+{
+    if (millis() - lastUpdate > UPDATE_SPEED)
+    {
+        lastUpdate = millis();
+
+        setMood(constrain(getMood() - 20, 0, 255));
+        setEnergy(constrain(getEnergy() - 20, 0, 255));
+        setProductivity(constrain(getProductivity() - 20, 0, 255));
+    }
 }

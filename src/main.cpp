@@ -7,6 +7,7 @@ SPDX-License-Identifier: GPL-3.0-or-later
 
 #include "utils/comm.hpp"
 #include "utils/devpet.hpp"
+#include "utils/devpet_game.hpp"
 #include "utils/devpet_graphics.hpp"
 #include "utils/input.hpp"
 #include "utils/display/display.hpp"
@@ -30,6 +31,7 @@ time::TimeSystem timeSystem;
 comm::CommSystem commSystem;
 
 DevPet devPet;
+DevPetGame devPetGame;
 DevPetGraphics devPetGraphics(displaySystem, devPet, commSystem);
 
 void setup()
@@ -67,25 +69,40 @@ void loop()
   if (buttonLeft.isJustPressed())
   {
     commSystem.log("Button Left pressed");
-    devPetGraphics.setCurrentPage(DevPetPage::Main);
-    devPet.setEnergy(constrain(devPet.getEnergy() + 10, 0, 255));
-    devPet.setMood(constrain(devPet.getMood() + 10, 0, 255));
-    devPet.setProductivity(constrain(devPet.getProductivity() + 10, 0, 255));
+
+    switch (devPetGraphics.getCurrentPage())
+    {
+    case DevPetPage::Main:
+      devPetGraphics.setCurrentPage(DevPetPage::Stats);
+      break;
+    case DevPetPage::Game:
+      devPetGraphics.setCurrentPage(DevPetPage::Main);
+      break;
+    default:
+      break;
+    }
   }
 
   if (buttonRight.isJustPressed())
   {
     commSystem.log("Button Right pressed");
-    devPetGraphics.setCurrentPage(DevPetPage::Stats);
-    devPet.setEnergy(constrain(devPet.getEnergy() - 10, 0, 255));
-    devPet.setMood(constrain(devPet.getMood() - 10, 0, 255));
-    devPet.setProductivity(constrain(devPet.getProductivity() - 10, 0, 255));
+
+    switch (devPetGraphics.getCurrentPage())
+    {
+    case DevPetPage::Stats:
+      devPetGraphics.setCurrentPage(DevPetPage::Main);
+      break;
+    case DevPetPage::Main:
+      devPetGraphics.setCurrentPage(DevPetPage::Game);
+      break;
+    default:
+      break;
+    }
   }
 
   if (buttonCenter.isJustPressed())
   {
     commSystem.log("Button Center pressed");
-    devPet.setEnergy(125);
   }
 
   // Commands Input
@@ -108,6 +125,10 @@ void loop()
         const String artists = command.payload.substring(pos + 1);
 
         devPetGraphics.playMusic(song + " - " + artists);
+
+        // TODO: make sure the command can't be called too often
+        devPet.boostMood();
+
         commSystem.log(comm::MT_INFO, "Playing: " + song + " - " + artists);
       }
       else
@@ -117,18 +138,22 @@ void loop()
     }
     else if (command.command_name == "new-issue")
     {
+      devPet.boostEnergy();
       devPetGraphics.pushIssue(command.payload);
     }
     else if (command.command_name == "new-pr")
     {
+      devPet.boostEnergy();
       devPetGraphics.pushPullRequest(command.payload);
     }
     else if (command.command_name == "new-commits")
     {
+      devPet.boostProductivity();
       devPetGraphics.pushNewCommits(command.payload.toInt());
     }
   }
 
+  devPet.step();
   devPetGraphics.step();
   displaySystem.step();
 

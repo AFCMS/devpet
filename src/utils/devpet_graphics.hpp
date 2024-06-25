@@ -6,26 +6,41 @@ SPDX-License-Identifier: GPL-3.0-or-later
 #include "devpet.hpp"
 #include "comm.hpp"
 #include "display/display.hpp"
+#include "display/display_progress_bar.hpp"
 #include "display/display_rect.hpp"
 #include "display/display_sprite_bar.hpp"
 #include "display/display_sprite_static.hpp"
 #include "display/display_text.hpp"
 #include "display/display_text_scrolling.hpp"
 
+#include "images/button_center.hpp"
+#include "images/button_left.hpp"
+#include "images/button_right.hpp"
 #include "images/music_note.hpp"
 #include "images/git_commit.hpp"
 #include "images/git_pull_request.hpp"
 #include "images/heart.hpp"
 #include "images/issue_opened.hpp"
+#include "images/dino.hpp"
 
 #pragma once
 
 using namespace utils;
 
+/**
+ * The different pages of the DevPet
+ *
+ * - Main: The main page, with the health bar, the dinosaur and the top feed
+ * - Stats: The stats page, with the mood, energy and productivity bars
+ * - Game: The game page, with the minigame itself
+ *
+ * The main page is at the middle, the stats page at the left and the game page at the right
+ */
 enum DevPetPage
 {
     Main,
     Stats,
+    Game,
 };
 
 class DevPetGraphics
@@ -93,18 +108,37 @@ private:
 
     display::Rect testRect{0, 17, 128, 1};
 
+    display::SpriteStatic mainButtonLeft{0, 24, images::static_button_left, 13, 13};
+    display::SpriteStatic mainButtonRight{128 - 13, 24, images::static_button_right, 13, 13};
+
     // Health Bar
 
-    display::SpriteAnimated healthBarSp1{9, 0, images::heart, images::heart_num_frames, 9, 9};
-    display::SpriteAnimated healthBarSp2{18, 0, images::heart, images::heart_num_frames, 9, 9};
-    display::SpriteAnimated healthBarSp3{27, 0, images::heart, images::heart_num_frames, 9, 9};
-    display::SpriteAnimated healthBarSp4{36, 0, images::heart, images::heart_num_frames, 9, 9};
-    display::SpriteAnimated healthBarSp5{45, 0, images::heart, images::heart_num_frames, 9, 9};
+    display::SpriteAnimated healthBarSp1{83 + 0, 55, images::heart, images::heart_num_frames, 9, 9};
+    display::SpriteAnimated healthBarSp2{83 + 9, 55, images::heart, images::heart_num_frames, 9, 9};
+    display::SpriteAnimated healthBarSp3{83 + 18, 55, images::heart, images::heart_num_frames, 9, 9};
+    display::SpriteAnimated healthBarSp4{83 + 27, 55, images::heart, images::heart_num_frames, 9, 9};
+    display::SpriteAnimated healthBarSp5{83 + 36, 55, images::heart, images::heart_num_frames, 9, 9};
 
     display::SpriteAnimated *healthBarSps[5];
     display::SpriteBar healthBar{5, healthBarSps, 255};
 
-    display::Text test2dPage{0, 0, "2D Page"};
+    display::SpriteStatic testSp{9, 40, images::static_dino, 25, 25};
+
+    // Stats Page
+
+    display::SpriteStatic statsButtonRight{128 - 13, 24, images::static_button_right, 13, 13};
+
+    display::Text statsMoodLabel{0, 18, "Mood"};
+    display::ProgressBar statsMood{6 * 8, 17, 50, 10, 255};
+    display::Text statsMoodValue{6 * 8 + 50 + 2, 18, ""};
+
+    display::Text statsEnergyLabel{0, 29, "Energy"};
+    display::ProgressBar statsEnergy{6 * 8, 28, 50, 10, 255};
+    display::Text statsEnergyValue{6 * 8 + 50 + 2, 29, ""};
+
+    display::Text statsProductivityLabel{0, 40, "Prod"};
+    display::ProgressBar statsProductivity{6 * 8, 39, 50, 10, 255};
+    display::Text statsProductivityValue{6 * 8 + 50 + 2, 40, ""};
 
     void updateDisplay();
     void updateDisplayedNodes();

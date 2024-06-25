@@ -5,6 +5,14 @@ SPDX-License-Identifier: GPL-3.0-or-later
 
 #include "devpet_graphics.hpp"
 
+String getNumberAsHEX(unsigned char number)
+{
+    auto end = String(number, HEX);
+    end.toUpperCase();
+    end.length() == 1 ? end = "0" + end : end;
+    return String("0x") + end;
+}
+
 DevPetGraphics::DevPetGraphics(display::DisplaySystem &_displaySystem, DevPet &_devPet, comm::CommSystem &_commSystem) : devPet(_devPet), displaySystem(_displaySystem), commSystem(_commSystem) {}
 
 void DevPetGraphics::begin()
@@ -43,6 +51,18 @@ void DevPetGraphics::step()
     // Update health bar
     healthBar.setVal(devPet.getHealth());
 
+    if (getCurrentPage() == DevPetPage::Stats)
+    {
+        statsMood.setVal(devPet.getMood());
+        statsMoodValue.setText(getNumberAsHEX(devPet.getMood()));
+
+        statsEnergy.setVal(devPet.getEnergy());
+        statsEnergyValue.setText(getNumberAsHEX(devPet.getEnergy()));
+
+        statsProductivity.setVal(devPet.getProductivity());
+        statsProductivityValue.setText(getNumberAsHEX(devPet.getProductivity()));
+    }
+
     updateDisplay();
 }
 
@@ -72,16 +92,35 @@ void DevPetGraphics::updateDisplayedNodes()
         displaySystem.setNode2D(FEED_TITLE_1_Z, &feedTitle1);
         displaySystem.setNode2D(FEED_TITLE_2_Z, &feedTitle2);
         // displaySystem.setNode2D(220, &healthBar);
+
+        displaySystem.setNode2D(200, &mainButtonLeft);
+        displaySystem.setNode2D(201, &mainButtonRight);
+
         displaySystem.setNode2D(221, &testRect);
         displaySystem.setNode2D(222, &healthBarSp1);
         displaySystem.setNode2D(223, &healthBarSp2);
         displaySystem.setNode2D(224, &healthBarSp3);
         displaySystem.setNode2D(225, &healthBarSp4);
         displaySystem.setNode2D(226, &healthBarSp5);
+
+        displaySystem.setNode2D(227, &testSp);
         break;
     case DevPetPage::Stats:
-        displaySystem.setNode2D(230, &test2dPage);
+        displaySystem.setNode2D(201, &statsButtonRight);
+        displaySystem.setNode2D(230, &statsMoodLabel);
+        displaySystem.setNode2D(231, &statsMood);
+        displaySystem.setNode2D(232, &statsMoodValue);
+
+        displaySystem.setNode2D(233, &statsEnergyLabel);
+        displaySystem.setNode2D(234, &statsEnergy);
+        displaySystem.setNode2D(235, &statsEnergyValue);
+
+        displaySystem.setNode2D(236, &statsProductivityLabel);
+        displaySystem.setNode2D(237, &statsProductivity);
+        displaySystem.setNode2D(238, &statsProductivityValue);
         break;
+    case DevPetPage::Game:
+
     default:
         break;
     }

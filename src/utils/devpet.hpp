@@ -8,9 +8,21 @@ SPDX-License-Identifier: GPL-3.0-or-later
 
 #pragma once
 
+enum DevPetDifficulty
+{
+    Easy = 1,
+    Medium = 2,
+    Hard = 4,
+    Insane = 5,
+};
+
 class DevPet
 {
 private:
+    static const unsigned char DEFAULT_MOOD = 255;
+    static const unsigned char DEFAULT_ENERGY = 255;
+    static const unsigned char DEFAULT_PRODUCTIVITY = 255;
+
     unsigned char mood = 0;
     unsigned char energy = 0;
     unsigned char productivity = 0;
@@ -19,6 +31,8 @@ private:
      * @brief The health of the DevPet, which is calculated as the geometric mean of the mood, energy and productivity.
      */
     unsigned char health = 0;
+
+    unsigned long lastUpdate = 0;
 
     /**
      * @brief The speed at which the stats of the pet will decrease when no actions are taken.
@@ -53,6 +67,11 @@ public:
     void setMood(unsigned char mood);
 
     /**
+     * @brief Increate the mood of the pet
+     */
+    void boostMood();
+
+    /**
      * @brief Get the energy of the DevPet
      */
     unsigned char getEnergy();
@@ -63,6 +82,11 @@ public:
     void setEnergy(unsigned char energy);
 
     /**
+     * @brief Increate the energy of the pet
+     */
+    void boostEnergy();
+
+    /**
      * @brief Get the productivity of the DevPet
      */
     unsigned char getProductivity();
@@ -71,6 +95,11 @@ public:
      * @brief Set the productivity of the DevPet
      */
     void setProductivity(unsigned char productivity);
+
+    /**
+     * @brief Increate the productivity of the pet
+     */
+    void boostProductivity();
 
     /**
      * @brief Get the health of the DevPet
@@ -86,4 +115,6 @@ public:
 
     void saveData();
     void loadData();
+
+    void step();
 };

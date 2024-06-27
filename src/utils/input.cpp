@@ -17,7 +17,7 @@ namespace utils
         void Button::begin(int _debounceTime)
         {
             pinMode(pin, INPUT_PULLUP);
-            debounceTime = debounceTime;
+            debounceTime = _debounceTime;
             attachInterruptArg(digitalPinToInterrupt(pin), ISR, this, CHANGE);
         };
 

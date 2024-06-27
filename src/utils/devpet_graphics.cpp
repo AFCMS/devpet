@@ -206,7 +206,10 @@ void DevPetGraphics::internalFeedReset()
 
 void DevPetGraphics::internalFeedMusic()
 {
-    displaySystem.setNode2D(FEED_ICON_Z, &feedMusicIcon);
+    if (currentPage == DevPetPage::Main)
+    {
+        displaySystem.setNode2D(FEED_ICON_Z, &feedMusicIcon);
+    }
     feedTitle1.setText("Listening");
     feedTitle2.setText(feedMusicName);
 }

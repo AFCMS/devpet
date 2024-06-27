@@ -46,6 +46,8 @@ namespace utils
             unsigned char speed = 1;
             unsigned char repeatFrame = 0;
 
+            unsigned char currentLoopCount = 0;
+            unsigned char nbLoopBeforeNext = 0;
             bool stopLoop = false;
             bool stopLoopAfter = false;
 
@@ -84,6 +86,11 @@ namespace utils
              * Must be called after setAnimAfter.
              */
             void doStopLoopAfter();
+
+            /**
+             * @brief Set the number of loops before the next animation.
+             */
+            void setNbLoopBeforeNext(unsigned char _nbLoopBeforeNext);
 
             void drawFrame(DisplaySystem *displaySystem) override;
         };

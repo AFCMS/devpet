@@ -24,6 +24,7 @@ namespace utils
             selectedAnim = anim;
             selectedFrame = 0;
             stopLoop = false;
+            currentLoopCount = 0;
         };
 
         void SpriteAnimated::setAnimAfter(unsigned char _afterAnim)
@@ -47,6 +48,11 @@ namespace utils
             stopLoopAfter = true;
         }
 
+        void SpriteAnimated::setNbLoopBeforeNext(unsigned char _nbLoopBeforeNext)
+        {
+            nbLoopBeforeNext = _nbLoopBeforeNext;
+        }
+
         void SpriteAnimated::drawFrame(DisplaySystem *displaySystem)
         {
             auto bitmap = frames[selectedAnim][selectedFrame];
@@ -56,17 +62,19 @@ namespace utils
             {
                 if (selectedFrame == numFrames[selectedAnim] - 1)
                 {
-                    if (selectedAnimAfter != NO_AFTER_ANIM)
+                    if (selectedAnimAfter != NO_AFTER_ANIM && currentLoopCount >= nbLoopBeforeNext - 1)
                     {
                         setAnim(selectedAnimAfter);
                         selectedAnimAfter = NO_AFTER_ANIM;
                         stopLoop = stopLoopAfter;
                         stopLoopAfter = false;
+                        currentLoopCount = 0;
                         bitmap = frames[selectedAnim][selectedFrame];
                     }
                     else if (!stopLoop)
                     {
                         selectedFrame = 0;
+                        currentLoopCount++;
                     }
                 }
                 else

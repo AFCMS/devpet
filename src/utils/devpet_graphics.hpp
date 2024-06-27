@@ -127,7 +127,8 @@ private:
 
     // Stats Page
 
-    display::SpriteStatic statsButtonRight{128 - 13, 24, images::static_button_right, 13, 13};
+    display::Text statsMainLabel{0, 4, "Stats", 1, 21, true};
+    display::SpriteStatic statsButtonRight{128 - 13, 1, images::static_button_right, 13, 13};
 
     display::Text statsMoodLabel{0, 18, "Mood"};
     display::ProgressBar statsMood{6 * 8, 17, 50, 10, 255};

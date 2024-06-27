@@ -112,6 +112,7 @@ void DevPetGraphics::updateDisplayedNodes()
         displaySystem.setNode2D(227, &testSp);
         break;
     case DevPetPage::Stats:
+        displaySystem.setNode2D(200, &statsMainLabel);
         displaySystem.setNode2D(201, &statsButtonRight);
         displaySystem.setNode2D(230, &statsMoodLabel);
         displaySystem.setNode2D(231, &statsMood);

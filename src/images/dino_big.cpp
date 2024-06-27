@@ -38,5 +38,34 @@ namespace images
         static_dino_big_wake_7,
         static_dino_big_wake_8};
 
-    const unsigned char **dino_big[] = {dino_big_music, dino_big_coffee, dino_big_dead, dino_big_wake};
+    const unsigned char *dino_big_idle[] = {
+        static_dino_big_idle_1,
+        static_dino_big_idle_2,
+        static_dino_big_idle_3,
+        static_dino_big_idle_4,
+        static_dino_big_idle_5,
+        static_dino_big_idle_6,
+        static_dino_big_idle_7,
+        static_dino_big_idle_8,
+        static_dino_big_idle_9,
+        static_dino_big_idle_10,
+        static_dino_big_idle_11,
+        static_dino_big_idle_12,
+        static_dino_big_idle_13,
+        static_dino_big_idle_14,
+        static_dino_big_idle_15};
+
+    const unsigned char *dino_big_party[] = {
+        static_dino_big_party_1,
+        static_dino_big_party_2,
+        static_dino_big_party_3,
+        static_dino_big_party_4};
+
+    const unsigned char **dino_big[] = {
+        dino_big_music,
+        dino_big_coffee,
+        dino_big_dead,
+        dino_big_wake,
+        dino_big_idle,
+        dino_big_party};
 }

@@ -7,6 +7,50 @@ SPDX-License-Identifier: GPL-3.0-or-later
 
 [![PlatformIO CI](https://github.com/AFCMS/devpet/actions/workflows/platformio.yml/badge.svg)](https://github.com/AFCMS/devpet/actions/workflows/platformio.yml)
 
+## Design
+
+```mermaid
+flowchart TD
+    subgraph graphical_elements[Graphical Elements]
+    Node2D -.-> Rect
+    Node2D -.-> ProgressBar
+    Node2D -.-> SpriteAnimated
+    Node2D -.-> SpriteBar
+    Node2D -.-> SpriteStatic
+    Node2D -.-> TextScrolling
+    Node2D -.-> Text
+    end
+
+    graphical_elements --> DisplaySystem
+    graphical_elements --> DevPetGraphics
+
+    subgraph manager_classes[Manager Classes]
+    DevPet --> DevPetGraphics
+    DevPetGraphics --> DisplaySystem
+    end
+
+    subgraph input[Input]
+    Button
+    CommSystem
+    end
+
+    subgraph body[Body]
+    loop
+    end
+
+    loop --> DevPet
+    Button --> loop
+    CommSystem <--> loop
+
+    subgraph hardware[Hardware]
+    SSD1306
+    serial_port[Serial Port]
+    end
+
+    serial_port <--> CommSystem
+    DisplaySystem --> SSD1306
+```
+
 ## Run the project
 
 ### Install PlatformIO

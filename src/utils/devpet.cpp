@@ -33,6 +33,11 @@ void DevPet::boostMood()
     setMood(constrain(getMood() + 20, 0, 255));
 }
 
+void DevPet::boostMood(unsigned char amount)
+{
+    setMood(constrain(getMood() + (20 * amount), 0, 255));
+}
+
 unsigned char DevPet::getEnergy()
 {
     return energy;

@@ -74,6 +74,11 @@ public:
     void boostMood();
 
     /**
+     * @brief Increate the mood of the pet by amount times
+     */
+    void boostMood(unsigned char amount);
+
+    /**
      * @brief Get the energy of the DevPet
      */
     unsigned char getEnergy();

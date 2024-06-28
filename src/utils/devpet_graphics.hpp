@@ -101,7 +101,7 @@ private:
     static const unsigned char FEED_TITLE_1_Z = 11;
     display::Text feedTitle1{18, 0, "", 1, 18, true};
 
-    static const unsigned long FEED_MUSIC_TIMEOUT = 1000 * 10;
+    static const unsigned long FEED_MUSIC_TIMEOUT = 1000 * 15;
     unsigned long lastTimeMusicUpdated = 0;
 
     static const unsigned char FEED_TITLE_2_Z = 12;

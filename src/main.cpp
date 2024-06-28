@@ -31,7 +31,7 @@ time::TimeSystem timeSystem;
 comm::CommSystem commSystem;
 
 DevPet devPet;
-DevPetGame devPetGame(commSystem, displaySystem);
+DevPetGame devPetGame(commSystem, displaySystem, devPet);
 DevPetGraphics devPetGraphics(displaySystem, devPet, devPetGame, commSystem);
 
 void setup()
@@ -200,37 +200,4 @@ void loop()
     devPet.log(commSystem);
     lastLoggedDevPet = millis();
   }
-
-  /*switch (state)
-  {
-  case WAITING_FOR_SERIAL:
-    for (int i = 0; i < commands.size(); i++)
-    {
-      auto command = commands.front();
-      commands.pop();
-
-      if (command.command_name == "ping")
-      {
-        state = MAIN_LOOP;
-      }
-      else
-      {
-        commSystem.sendCommand("ping");
-        delay(500);
-      };
-    }
-    break;
-
-  default:
-    for (int i = 0; i < commands.size(); i++)
-    {
-      auto command = commands.front();
-      commands.pop();
-
-      commSystem.log(comm::MT_INFO, "Command: " + command.command_name + " Payload: " + command.payload);
-    }
-
-    displaySystem.step();
-    break;
-  }*/
 }

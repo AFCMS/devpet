@@ -5,7 +5,7 @@ SPDX-License-Identifier: GPL-3.0-or-later
 
 #include "devpet_game.hpp"
 
-DevPetGame::DevPetGame(comm::CommSystem &_commSystem, display::DisplaySystem &_displaySystem) : commSystem(_commSystem), displaySystem(_displaySystem)
+DevPetGame::DevPetGame(comm::CommSystem &_commSystem, display::DisplaySystem &_displaySystem, DevPet &_devPet) : commSystem(_commSystem), displaySystem(_displaySystem), devPet(_devPet)
 {
 }
 
@@ -24,7 +24,6 @@ void DevPetGame::step()
             // Waiting for button press to start the game
             break;
         case DevPetGameState::InGame:
-            // player.setPos(50, 50);
             updatePlayerPosition();
             updateEnemyPosition();
             checkGameConditions();
@@ -149,6 +148,7 @@ void DevPetGame::checkGameConditions()
     {
         commSystem.log("Game over! Score: " + String(score));
         state = DevPetGameState::End;
+        devPet.boostMood((unsigned char)score);
         updateNodes();
     }
 }

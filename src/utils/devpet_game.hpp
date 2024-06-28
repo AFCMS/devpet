@@ -4,6 +4,7 @@ SPDX-License-Identifier: GPL-3.0-or-later
 */
 
 #include "comm.hpp"
+#include "devpet.hpp"
 #include "display/display.hpp"
 #include "display/display_progress_bar.hpp"
 #include "display/display_rect.hpp"
@@ -39,13 +40,14 @@ class DevPetGame
 private:
     display::DisplaySystem &displaySystem;
     comm::CommSystem &commSystem;
+    DevPet &devPet;
 
     unsigned char sps = 20; // Steps per second
     unsigned long lastMillis = 0;
 
     display::Text playTitle{0, 0, "Play"};
 
-    display::Text gameOver{0, 20, "Game Over!", 1, 18, true};
+    display::Text gameOver{0, 20, "Game Over!", 1, 21, true};
     display::Text scoreLabel{18, 6, "Score: 0"};
     display::SpriteStatic player{0, 0, images::static_dino_small, 16, 16};
 
@@ -82,7 +84,7 @@ private:
     void checkGameConditions();
 
 public:
-    DevPetGame(comm::CommSystem &_commSystem, display::DisplaySystem &_displaySystem);
+    DevPetGame(comm::CommSystem &_commSystem, display::DisplaySystem &_displaySystem, DevPet &_devPet);
     DevPetGameState getState();
     void step();
     void updateNodes();

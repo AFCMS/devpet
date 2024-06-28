@@ -197,7 +197,7 @@ void loop()
 
   if (millis() - lastLoggedDevPet > 2000)
   {
-    devPet.log(commSystem);
+    // devPet.log(commSystem);
     lastLoggedDevPet = millis();
   }
 }

@@ -76,6 +76,21 @@ void DevPet::updateHealth()
 {
     float geometricMean = pow(mood * energy * productivity, 1.0 / 3.0);
     health = (unsigned char)geometricMean;
+    if (health == 0)
+    {
+        dead = true;
+        justDied = true;
+    }
+}
+
+bool DevPet::isDead()
+{
+    return dead;
+}
+
+bool DevPet::isJustDead()
+{
+    return justDied;
 }
 
 void DevPet::saveData()
@@ -95,7 +110,14 @@ void DevPet::loadData()
 
 void DevPet::step()
 {
-    if (millis() - lastUpdate > UPDATE_SPEED)
+    if (isDead())
+    {
+        if (justDied)
+        {
+            justDied = false;
+        }
+    }
+    else if (millis() - lastUpdate > UPDATE_SPEED)
     {
         lastUpdate = millis();
 

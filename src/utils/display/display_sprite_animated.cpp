@@ -30,7 +30,10 @@ namespace utils
         void SpriteAnimated::setAnimAfter(unsigned char _afterAnim)
         {
             selectedAnimAfter = _afterAnim;
-            stopLoopAfter = false;
+            if (selectedAnimAfter != NO_AFTER_ANIM)
+            {
+                stopLoopAfter = false;
+            }
         }
 
         void SpriteAnimated::setSpeed(unsigned char _speed)

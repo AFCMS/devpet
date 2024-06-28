@@ -112,6 +112,8 @@ private:
     display::SpriteStatic mainButtonLeft{0, 24, images::static_button_left, 13, 13};
     display::SpriteStatic mainButtonRight{128 - 13, 24, images::static_button_right, 13, 13};
 
+    display::SpriteStatic mainButtonNewPet{128 - 13, 24, images::static_button_center, 13, 13};
+
     // Health Bar
 
     display::SpriteAnimated healthBarSp1{83 + 0, 55, images::heart, images::heart_num_frames, 9, 9};
@@ -123,7 +125,15 @@ private:
     display::SpriteAnimated *healthBarSps[5];
     display::SpriteBar healthBar{5, healthBarSps, 255};
 
-    display::SpriteAnimated testSp{18, 18, images::dino_big, images::dino_big_numframes, 48, 48};
+    display::Text mainDeathLabel{0, 4, "Your Pet Died", 1, 21, true};
+
+    unsigned char mainDinoCurrentAnim = DINO_BIG_IDLE;
+    display::SpriteAnimated mainDinoSprite{18, 18, images::dino_big, images::dino_big_numframes, 48, 48};
+
+    /**
+     * @brief The expected Dino IDLE animation, should be DINO_BIG_IDLE or DINO_BIG_MUSIC
+     */
+    unsigned char expectedDinoIDLE = DINO_BIG_IDLE;
 
     // Stats Page
 
@@ -150,6 +160,10 @@ private:
     void internalFeedReset();
     void internalFeedMusic();
 
+    void internalDinoParty();
+
+    void internalSetDinoAnim(unsigned char anim);
+
 public:
     DevPetGraphics(display::DisplaySystem &_displaySystem, DevPet &_devPet, comm::CommSystem &_commSystem);
 
@@ -168,4 +182,6 @@ public:
     void pushPullRequest(String pullRequestTitle);
 
     void pushNewCommits(long nbCommits);
+
+    void drinkCoffee();
 };

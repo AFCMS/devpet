@@ -31,6 +31,8 @@ private:
      * @brief The health of the DevPet, which is calculated as the geometric mean of the mood, energy and productivity.
      */
     unsigned char health = 0;
+    bool dead = false;
+    bool justDied = false;
 
     unsigned long lastUpdate = 0;
 
@@ -112,6 +114,9 @@ public:
      * The health is calculated as the geometric mean of the mood, energy and productivity.
      */
     void updateHealth();
+
+    bool isDead();
+    bool isJustDead();
 
     void saveData();
     void loadData();

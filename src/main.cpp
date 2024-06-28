@@ -62,6 +62,12 @@ void loop()
   // Update time
   timeSystem.step();
 
+  if (devPet.isJustDead())
+  {
+    commSystem.log("DevPet is dead");
+    devPetGraphics.setCurrentPage(DevPetPage::Main);
+  }
+
   ///////////
   // INPUT //
   ///////////
@@ -70,16 +76,19 @@ void loop()
   {
     commSystem.log("Button Left pressed");
 
-    switch (devPetGraphics.getCurrentPage())
+    if (!devPet.isDead())
     {
-    case DevPetPage::Main:
-      devPetGraphics.setCurrentPage(DevPetPage::Stats);
-      break;
-    case DevPetPage::Game:
-      devPetGraphics.setCurrentPage(DevPetPage::Main);
-      break;
-    default:
-      break;
+      switch (devPetGraphics.getCurrentPage())
+      {
+      case DevPetPage::Main:
+        devPetGraphics.setCurrentPage(DevPetPage::Stats);
+        break;
+      case DevPetPage::Game:
+        devPetGraphics.setCurrentPage(DevPetPage::Main);
+        break;
+      default:
+        break;
+      }
     }
   }
 
@@ -87,22 +96,31 @@ void loop()
   {
     commSystem.log("Button Right pressed");
 
-    switch (devPetGraphics.getCurrentPage())
+    if (!devPet.isDead())
     {
-    case DevPetPage::Stats:
-      devPetGraphics.setCurrentPage(DevPetPage::Main);
-      break;
-    case DevPetPage::Main:
-      devPetGraphics.setCurrentPage(DevPetPage::Game);
-      break;
-    default:
-      break;
+      switch (devPetGraphics.getCurrentPage())
+      {
+      case DevPetPage::Stats:
+        devPetGraphics.setCurrentPage(DevPetPage::Main);
+        break;
+      case DevPetPage::Main:
+        devPetGraphics.setCurrentPage(DevPetPage::Game);
+        break;
+      default:
+        break;
+      }
     }
   }
 
   if (buttonCenter.isJustPressed())
   {
     commSystem.log("Button Center pressed");
+
+    if (!devPet.isDead() && devPetGraphics.getCurrentPage() == DevPetPage::Main)
+    {
+      devPet.boostEnergy();
+      devPetGraphics.drinkCoffee();
+    }
   }
 
   // Commands Input
@@ -115,7 +133,7 @@ void loop()
 
     commSystem.log(comm::MT_INFO, "Command: " + command.command_name + " Payload: " + command.payload);
 
-    if (command.command_name == "music-play")
+    if (command.command_name == "music-play" && !devPet.isDead())
     {
       const int pos = command.payload.indexOf("^");
 
@@ -136,17 +154,17 @@ void loop()
         commSystem.log(comm::MT_ERROR, "Invalid payload for music-play command");
       }
     }
-    else if (command.command_name == "new-issue")
+    else if (command.command_name == "new-issue" && !devPet.isDead())
     {
       devPet.boostEnergy();
       devPetGraphics.pushIssue(command.payload);
     }
-    else if (command.command_name == "new-pr")
+    else if (command.command_name == "new-pr" && !devPet.isDead())
     {
       devPet.boostEnergy();
       devPetGraphics.pushPullRequest(command.payload);
     }
-    else if (command.command_name == "new-commits")
+    else if (command.command_name == "new-commits" && !devPet.isDead())
     {
       devPet.boostProductivity();
       devPetGraphics.pushNewCommits(command.payload.toInt());

@@ -25,11 +25,8 @@ void DevPetGraphics::begin()
 
     healthBar.setVal(255);
 
-    testSp.setAnim(1);
-    testSp.setAnimAfter(2);
-    testSp.doStopLoopAfter();
-    // testSp.doStopLoop();
-    testSp.setSpeed(2);
+    mainDinoSprite.setAnim(DINO_BIG_IDLE);
+    mainDinoSprite.setSpeed(2);
 
     for (unsigned char i = 0; i < 5; i++)
     {
@@ -48,28 +45,41 @@ void DevPetGraphics::step()
         updateDisplayedNodes();
     }
 
-    // Reset music name if no update in a while
-    if (millis() - lastTimeMusicUpdated > FEED_MUSIC_TIMEOUT)
-    {
-        feedMusicName = "";
-    }
-
     // Update health bar
     healthBar.setVal(devPet.getHealth());
 
-    if (getCurrentPage() == DevPetPage::Stats)
+    if (devPet.isJustDead())
     {
-        statsMood.setVal(devPet.getMood());
-        statsMoodValue.setText(getNumberAsHEX(devPet.getMood()));
-
-        statsEnergy.setVal(devPet.getEnergy());
-        statsEnergyValue.setText(getNumberAsHEX(devPet.getEnergy()));
-
-        statsProductivity.setVal(devPet.getProductivity());
-        statsProductivityValue.setText(getNumberAsHEX(devPet.getProductivity()));
+        mainDinoSprite.setAnimAfter(DINO_BIG_DEAD);
+        mainDinoSprite.doStopLoopAfter();
+        feedMusicName = "";
+        feedMusicLastUpdate = 0;
+        internalFeedReset();
+        updateDisplayedNodes();
     }
 
-    updateDisplay();
+    if (!devPet.isDead())
+    {
+        // Reset music name if no update in a while
+        if (millis() - lastTimeMusicUpdated > FEED_MUSIC_TIMEOUT)
+        {
+            feedMusicName = "";
+        }
+
+        if (getCurrentPage() == DevPetPage::Stats)
+        {
+            statsMood.setVal(devPet.getMood());
+            statsMoodValue.setText(getNumberAsHEX(devPet.getMood()));
+
+            statsEnergy.setVal(devPet.getEnergy());
+            statsEnergyValue.setText(getNumberAsHEX(devPet.getEnergy()));
+
+            statsProductivity.setVal(devPet.getProductivity());
+            statsProductivityValue.setText(getNumberAsHEX(devPet.getProductivity()));
+        }
+
+        updateDisplay();
+    }
 }
 
 void DevPetGraphics::updateDisplay()
@@ -97,10 +107,16 @@ void DevPetGraphics::updateDisplayedNodes()
     case DevPetPage::Main:
         displaySystem.setNode2D(FEED_TITLE_1_Z, &feedTitle1);
         displaySystem.setNode2D(FEED_TITLE_2_Z, &feedTitle2);
-        // displaySystem.setNode2D(220, &healthBar);
 
-        displaySystem.setNode2D(200, &mainButtonLeft);
-        displaySystem.setNode2D(201, &mainButtonRight);
+        if (devPet.isDead())
+        {
+            displaySystem.setNode2D(200, &mainDeathLabel);
+        }
+        else
+        {
+            displaySystem.setNode2D(200, &mainButtonLeft);
+            displaySystem.setNode2D(201, &mainButtonRight);
+        }
 
         displaySystem.setNode2D(221, &testRect);
         displaySystem.setNode2D(222, &healthBarSp1);
@@ -109,7 +125,7 @@ void DevPetGraphics::updateDisplayedNodes()
         displaySystem.setNode2D(225, &healthBarSp4);
         displaySystem.setNode2D(226, &healthBarSp5);
 
-        displaySystem.setNode2D(227, &testSp);
+        displaySystem.setNode2D(227, &mainDinoSprite);
         break;
     case DevPetPage::Stats:
         displaySystem.setNode2D(200, &statsMainLabel);
@@ -160,6 +176,7 @@ void DevPetGraphics::pushIssue(String issueTitle)
         feedTitle2.setText(issueTitle);
         feedItemLastUpdate = millis();
     }
+    internalDinoParty();
 }
 
 void DevPetGraphics::pushPullRequest(String pullRequestTitle)
@@ -171,6 +188,7 @@ void DevPetGraphics::pushPullRequest(String pullRequestTitle)
         feedTitle2.setText(pullRequestTitle);
         feedItemLastUpdate = millis();
     }
+    internalDinoParty();
 }
 
 void DevPetGraphics::pushNewCommits(long nbCommits)
@@ -182,6 +200,7 @@ void DevPetGraphics::pushNewCommits(long nbCommits)
         feedTitle2.setText(String(nbCommits) + " new commits");
         feedItemLastUpdate = millis();
     }
+    internalDinoParty();
 }
 
 bool DevPetGraphics::internalFeedIsDisplayingItem()
@@ -203,6 +222,11 @@ void DevPetGraphics::internalFeedReset()
     feedMusicName = "";
     feedMusicLastUpdate = 0;
     feedItemLastUpdate = 0;
+    expectedDinoIDLE = DINO_BIG_IDLE;
+    if (!devPet.isDead())
+    {
+        mainDinoSprite.setAnimAfter(expectedDinoIDLE);
+    }
 }
 
 void DevPetGraphics::internalFeedMusic()
@@ -213,4 +237,28 @@ void DevPetGraphics::internalFeedMusic()
     }
     feedTitle1.setText("Listening");
     feedTitle2.setText(feedMusicName);
+    expectedDinoIDLE = DINO_BIG_MUSIC;
+    mainDinoSprite.setAnimAfter(expectedDinoIDLE);
+}
+
+void DevPetGraphics::internalDinoParty()
+{
+    mainDinoSprite.setAnim(DINO_BIG_PARTY);
+    mainDinoSprite.setNbLoopBeforeNext(3);
+    mainDinoSprite.setAnimAfter(expectedDinoIDLE);
+}
+
+void DevPetGraphics::internalSetDinoAnim(unsigned char anim)
+{
+    if (mainDinoCurrentAnim != DINO_BIG_DEAD)
+    {
+        mainDinoSprite.setAnim(anim);
+        mainDinoCurrentAnim = anim;
+    }
+}
+
+void DevPetGraphics::drinkCoffee()
+{
+    mainDinoSprite.setAnim(DINO_BIG_COFFEE);
+    mainDinoSprite.setAnimAfter(expectedDinoIDLE);
 }

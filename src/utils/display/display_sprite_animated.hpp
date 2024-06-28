@@ -7,6 +7,8 @@ SPDX-License-Identifier: GPL-3.0-or-later
 
 #pragma once
 
+#define NO_AFTER_ANIM 255
+
 namespace utils
 {
     namespace display
@@ -31,7 +33,6 @@ namespace utils
              */
             const unsigned char *numFrames;
 
-            static const unsigned char NO_AFTER_ANIM = 255;
             /**
              * @brief The width and height of the bitmaps in the frames.
              */

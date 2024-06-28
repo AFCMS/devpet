@@ -4,6 +4,7 @@ SPDX-License-Identifier: GPL-3.0-or-later
 */
 
 #include "devpet.hpp"
+#include "devpet_game.hpp"
 #include "comm.hpp"
 #include "display/display.hpp"
 #include "display/display_progress_bar.hpp"
@@ -58,6 +59,8 @@ private:
      * @brief Reference to the DevPet instance, to get data to display
      */
     DevPet &devPet;
+
+    DevPetGame &devPetGame;
 
     /**
      * @brief Reference to the communication system
@@ -165,7 +168,7 @@ private:
     void internalSetDinoAnim(unsigned char anim);
 
 public:
-    DevPetGraphics(display::DisplaySystem &_displaySystem, DevPet &_devPet, comm::CommSystem &_commSystem);
+    DevPetGraphics(display::DisplaySystem &_displaySystem, DevPet &_devPet, DevPetGame &_devPetGame, comm::CommSystem &_commSystem);
 
     void begin();
 

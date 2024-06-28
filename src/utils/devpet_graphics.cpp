@@ -13,7 +13,7 @@ String getNumberAsHEX(unsigned char number)
     return String("0x") + end;
 }
 
-DevPetGraphics::DevPetGraphics(display::DisplaySystem &_displaySystem, DevPet &_devPet, comm::CommSystem &_commSystem) : devPet(_devPet), displaySystem(_displaySystem), commSystem(_commSystem) {}
+DevPetGraphics::DevPetGraphics(display::DisplaySystem &_displaySystem, DevPet &_devPet, DevPetGame &_devPetGame, comm::CommSystem &_commSystem) : devPet(_devPet), devPetGame(_devPetGame), displaySystem(_displaySystem), commSystem(_commSystem) {}
 
 void DevPetGraphics::begin()
 {
@@ -145,7 +145,7 @@ void DevPetGraphics::updateDisplayedNodes()
         displaySystem.setNode2D(238, &statsProductivityValue);
         break;
     case DevPetPage::Game:
-
+        devPetGame.updateNodes();
     default:
         break;
     }

@@ -31,8 +31,8 @@ time::TimeSystem timeSystem;
 comm::CommSystem commSystem;
 
 DevPet devPet;
-DevPetGame devPetGame;
-DevPetGraphics devPetGraphics(displaySystem, devPet, commSystem);
+DevPetGame devPetGame(commSystem, displaySystem);
+DevPetGraphics devPetGraphics(displaySystem, devPet, devPetGame, commSystem);
 
 void setup()
 {
@@ -76,7 +76,7 @@ void loop()
   {
     commSystem.log("Button Left pressed");
 
-    if (!devPet.isDead())
+    if (!devPet.isDead() && devPetGame.getState() != DevPetGameState::InGame)
     {
       switch (devPetGraphics.getCurrentPage())
       {
@@ -96,7 +96,7 @@ void loop()
   {
     commSystem.log("Button Right pressed");
 
-    if (!devPet.isDead())
+    if (!devPet.isDead() && devPetGame.getState() != DevPetGameState::InGame)
     {
       switch (devPetGraphics.getCurrentPage())
       {
@@ -116,10 +116,23 @@ void loop()
   {
     commSystem.log("Button Center pressed");
 
-    if (!devPet.isDead() && devPetGraphics.getCurrentPage() == DevPetPage::Main)
+    auto page = devPetGraphics.getCurrentPage();
+
+    switch (page)
     {
-      devPet.boostEnergy();
-      devPetGraphics.drinkCoffee();
+    case DevPetPage::Main:
+      if (!devPet.isDead())
+      {
+        devPet.boostEnergy();
+        devPetGraphics.drinkCoffee();
+      }
+      break;
+    case DevPetPage::Game:
+      commSystem.log("Button Center passed to game");
+      devPetGame.pressButton();
+      break;
+    default:
+      break;
     }
 
     if (devPet.isDead())
@@ -178,6 +191,7 @@ void loop()
   }
 
   devPet.step();
+  devPetGame.step();
   devPetGraphics.step();
   displaySystem.step();
 

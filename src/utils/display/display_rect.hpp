@@ -13,10 +13,9 @@ namespace utils
     {
         class Rect : public Node2D
         {
-        private:
+        public:
             unsigned char w, h;
 
-        public:
             Rect(unsigned char _x, unsigned char _y, unsigned char _w, unsigned char _h);
             void drawFrame(DisplaySystem *displaySystem) override;
         };

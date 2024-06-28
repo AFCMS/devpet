@@ -62,6 +62,11 @@ namespace utils
             void setPos(unsigned char _x, unsigned char _y);
 
             /**
+             * @brief Get the position of the node on the screen
+             */
+            void getPos(unsigned char &_x, unsigned char &_y);
+
+            /**
              * @brief Draw a frame
              */
             virtual void drawFrame(DisplaySystem *displaySystem) = 0;

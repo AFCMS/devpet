@@ -15,6 +15,12 @@ namespace utils
             y = _y;
         };
 
+        void Node2D::getPos(unsigned char &_x, unsigned char &_y)
+        {
+            _x = x;
+            _y = y;
+        };
+
         DisplaySystem::DisplaySystem(unsigned char _fps)
         {
 
@@ -70,7 +76,10 @@ namespace utils
 
         void DisplaySystem::drawNode2D(Node2D *node)
         {
-            node->drawFrame(this);
+            if (node != nullptr)
+            {
+                node->drawFrame(this);
+            }
         };
 
         void DisplaySystem::begin()
@@ -97,7 +106,7 @@ namespace utils
 
                 for (auto it = nodes.begin(); it != nodes.end(); ++it)
                 {
-                    it->second->drawFrame(this);
+                    drawNode2D(it->second);
                 }
 
                 display();

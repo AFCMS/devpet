@@ -25,7 +25,8 @@ void DevPetGraphics::begin()
 
     healthBar.setVal(255);
 
-    mainDinoSprite.setAnim(DINO_BIG_IDLE);
+    mainDinoSprite.setAnim(DINO_BIG_WAKE);
+    mainDinoSprite.setAnimAfter(DINO_BIG_IDLE);
     mainDinoSprite.setSpeed(2);
 
     for (unsigned char i = 0; i < 5; i++)
@@ -262,4 +263,11 @@ void DevPetGraphics::drinkCoffee()
 {
     mainDinoSprite.setAnim(DINO_BIG_COFFEE);
     mainDinoSprite.setAnimAfter(expectedDinoIDLE);
+}
+
+void DevPetGraphics::revive()
+{
+    mainDinoSprite.setAnim(DINO_BIG_WAKE);
+    mainDinoSprite.setAnimAfter(DINO_BIG_IDLE);
+    updateDisplayedNodes();
 }

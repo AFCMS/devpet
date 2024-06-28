@@ -115,6 +115,11 @@ public:
      */
     void updateHealth();
 
+    /**
+     * @brief If the pet died, revive it (reset it's stats)
+     */
+    void revive();
+
     bool isDead();
     bool isJustDead();
 

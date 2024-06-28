@@ -83,6 +83,16 @@ void DevPet::updateHealth()
     }
 }
 
+void DevPet::revive()
+{
+    mood = DEFAULT_MOOD;
+    energy = DEFAULT_ENERGY;
+    productivity = DEFAULT_PRODUCTIVITY;
+    updateHealth();
+    dead = false;
+    saveData();
+}
+
 bool DevPet::isDead()
 {
     return dead;

@@ -184,4 +184,6 @@ public:
     void pushNewCommits(long nbCommits);
 
     void drinkCoffee();
+
+    void revive();
 };

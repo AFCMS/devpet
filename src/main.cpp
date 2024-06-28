@@ -121,6 +121,12 @@ void loop()
       devPet.boostEnergy();
       devPetGraphics.drinkCoffee();
     }
+
+    if (devPet.isDead())
+    {
+      devPet.revive();
+      devPetGraphics.revive();
+    }
   }
 
   // Commands Input

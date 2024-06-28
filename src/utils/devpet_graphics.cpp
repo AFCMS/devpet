@@ -111,6 +111,7 @@ void DevPetGraphics::updateDisplayedNodes()
         if (devPet.isDead())
         {
             displaySystem.setNode2D(200, &mainDeathLabel);
+            displaySystem.setNode2D(201, &mainButtonNewPet);
         }
         else
         {

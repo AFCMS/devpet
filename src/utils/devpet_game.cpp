@@ -27,7 +27,7 @@ void DevPetGame::step()
             // player.setPos(50, 50);
             updatePlayerPosition();
             updateEnemyPosition();
-            // checkGameConditions();
+            checkGameConditions();
             break;
         case DevPetGameState::End:
             // Display score and wait for button press to restart
@@ -51,18 +51,23 @@ void DevPetGame::start()
 
 void DevPetGame::updateNodes()
 {
+    displaySystem.clearNodes2D();
     switch (state)
     {
     case DevPetGameState::Menu:
-        displaySystem.setNode2D(50, &player);
-        displaySystem.setNode2D(51, &enemyType1);
-        enemyType1.setPos(128 - 13, 64 - 13);
+        displaySystem.setNode2D(61, &buttonLeft);
+        displaySystem.setNode2D(62, &buttonCenter);
         break;
     case DevPetGameState::InGame:
         displaySystem.setNode2D(50, &player);
         displaySystem.setNode2D(51, &enemyType1);
+        displaySystem.setNode2D(60, &scoreLabel);
         break;
     case DevPetGameState::End:
+        displaySystem.setNode2D(60, &scoreLabel);
+        displaySystem.setNode2D(61, &buttonLeft);
+        displaySystem.setNode2D(62, &buttonCenter);
+        displaySystem.setNode2D(63, &gameOver);
         break;
     };
 }
@@ -110,19 +115,28 @@ void DevPetGame::updateEnemyPosition()
     unsigned char ex, ey;
     enemyType1.getPos(ex, ey);
 
-    if (ex > 0)
+    // Check if the enemy has reached the left side of the screen or beyond
+    if (ex > 0 && ex <= enemySpeed)
     {
+        // Increment score and spawn a new enemy
+        score++;
+        scoreLabel.setText("Score: " + String(score));
+        spawnEnemy();
+    }
+    else if (ex > 0)
+    {
+        // Move the enemy towards the left
         ex -= enemySpeed;
+        enemyType1.setPos(ex, ey);
     }
     else
     {
-        score++;
+        // This condition handles the case where ex is already 0
+        // It ensures a new enemy is spawned without incrementing the score
+        // This is a safeguard and might not be necessary if enemies are always spawned
+        // with an x-coordinate greater than 0.
         spawnEnemy();
     }
-
-    commSystem.log("Enemy position: " + String(ex) + ", " + String(ey));
-
-    enemyType1.setPos(ex, ey);
 }
 
 void DevPetGame::checkGameConditions()
@@ -135,6 +149,7 @@ void DevPetGame::checkGameConditions()
     {
         commSystem.log("Game over! Score: " + String(score));
         state = DevPetGameState::End;
+        updateNodes();
     }
 }
 
@@ -155,7 +170,6 @@ void DevPetGame::pressButton()
         break;
     case DevPetGameState::End:
         state = DevPetGameState::Menu;
-        score = 0;
         break;
     }
 }

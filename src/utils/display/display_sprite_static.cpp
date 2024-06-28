@@ -9,7 +9,7 @@ namespace utils
 {
     namespace display
     {
-        SpriteStatic::SpriteStatic(int16_t _x, int16_t _y, const uint8_t *_bitmap, int16_t _w, int16_t _h)
+        SpriteStatic::SpriteStatic(unsigned char _x, unsigned char _y, const uint8_t *_bitmap, unsigned char _w, unsigned char _h)
         {
             x = _x;
             y = _y;

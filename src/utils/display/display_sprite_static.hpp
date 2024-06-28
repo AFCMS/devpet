@@ -15,10 +15,11 @@ namespace utils
         {
         private:
             const uint8_t *bitmap;
-            int16_t w, h;
 
         public:
-            SpriteStatic(int16_t _x, int16_t _y, const uint8_t *bitmap, int16_t _w, int16_t _h); // Update the parameter type accordingly
+            unsigned char w, h;
+
+            SpriteStatic(unsigned char _x, unsigned char _y, const uint8_t *bitmap, unsigned char _w, unsigned char _h);
             void drawFrame(DisplaySystem *displaySystem) override;
         };
     };
